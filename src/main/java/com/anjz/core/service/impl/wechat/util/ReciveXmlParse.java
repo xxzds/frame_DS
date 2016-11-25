@@ -1,0 +1,83 @@
+package com.anjz.core.service.impl.wechat.util;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+
+import org.apache.commons.lang.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.anjz.core.enums.wechat.MsgType;
+import com.anjz.core.model.wechat.ReceiveXmlEntity;
+
+/**
+ * 解析从微信接收到的xml消息(通过反射)
+ * @author ding.shuai
+ * @date 2016年9月27日下午10:13:13
+ */
+public class ReciveXmlParse {
+	
+	private static final Logger logger=LoggerFactory.getLogger(ReciveXmlParse.class);
+	
+	/**
+	 * 解析xml消息
+	 * @param strXml
+	 * @return
+	 */
+	public static ReceiveXmlEntity getMsgEntity(String strXml){
+		ReceiveXmlEntity msg = null;
+		try {
+			if (StringUtils.isEmpty(strXml))
+				return null;
+			 
+			// 将字符串转化为XML文档对象
+			Document document = DocumentHelper.parseText(strXml);
+			// 获得文档的根节点
+			Element root = document.getRootElement();
+			// 遍历根节点下所有子节点
+			Iterator<?> iter = root.elementIterator();
+			
+			// 遍历所有结点,利用反射机制，调用set方法
+			// 获取该实体的元类型
+			Class<?> c = Class.forName("com.anjz.core.model.wechat.ReceiveXmlEntity");
+			msg = (ReceiveXmlEntity)c.newInstance();//创建这个实体的对象
+			
+			while(iter.hasNext()){
+				Element ele = (Element)iter.next();
+				//获取set方法中的参数字段（实体类的属性）
+				Field field = c.getDeclaredField(ele.getName());
+				//获取set方法，field.getType())获取它的参数数据类型
+				Method method = c.getDeclaredMethod("set"+ele.getName(), field.getType());
+				
+				//调用set方法				
+				if(field.getType().getName().equals("java.lang.Long")){
+					method.invoke(msg, Long.valueOf(ele.getText()));
+				}else if(field.getType().getName().equals("com.anjz.core.enums.wechat.MsgType")){					
+					method.invoke(msg, MsgType.valueOf(ele.getText()));
+				}else if(field.getType().getName().equals("double")){
+					method.invoke(msg, Double.valueOf(ele.getText()).doubleValue());
+				}else{
+					method.invoke(msg, ele.getText());
+				}
+				
+				
+			}
+		} catch (Exception e) {
+			logger.info("xml 格式异常: "+ strXml);
+			e.printStackTrace();
+		}
+		return msg;
+	}
+	
+	
+	public static void main(String[] args) {
+//		String strXml="<xml><ToUserName><![CDATA[gh_2d65c3d92733]]></ToUserName><FromUserName><![CDATA[oiSltvy4dF0mRd8iA3BndVmIcG2I]]></FromUserName><CreateTime>1474989737</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[吧发布]]></Content><MsgId>6335032682774969301</MsgId></xml>";
+		String strXml="<xml><ToUserName><![CDATA[gh_2d65c3d92733]]></ToUserName><FromUserName><![CDATA[oiSltvy4dF0mRd8iA3BndVmIcG2I]]></FromUserName><CreateTime>1474991747</CreateTime><MsgType><![CDATA[location]]></MsgType><Location_X>31.830348</Location_X><Location_Y>117.169146</Location_Y><Scale>15</Scale><Label><![CDATA[合肥市蜀山区高新技术产业开发区蜀南庭苑(北区)]]></Label><MsgId>6335041315659234443</MsgId></xml>";
+		getMsgEntity(strXml);
+	}
+
+}

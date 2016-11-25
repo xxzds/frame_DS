@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anjz.core.dao.MaintainIconDao">
+
+	<resultMap id="BaseResultMap" type="com.anjz.core.model.MaintainIcon">
+			<id column="id" property="id" jdbcType="VARCHAR" />
+			<result column="identity" property="identity" jdbcType="VARCHAR" />
+			<result column="css_class" property="cssClass" jdbcType="VARCHAR" />
+			<result column="img_src" property="imgSrc" jdbcType="VARCHAR" />
+			<result column="width" property="width" jdbcType="DECIMAL" />
+			<result column="height" property="height" jdbcType="DECIMAL" />
+			<result column="sprite_src" property="spriteSrc" jdbcType="VARCHAR" />
+			<result column="offset_left" property="offsetLeft" jdbcType="DECIMAL" />
+			<result column="offset_top" property="offsetTop" jdbcType="DECIMAL" />
+			<result column="style" property="style" jdbcType="VARCHAR" />
+			<result column="type" property="type" jdbcType="VARCHAR" />
+			<result column="description" property="description" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+			id,
+			identity,
+			css_class,
+			img_src,
+			width,
+			height,
+			sprite_src,
+			offset_left,
+			offset_top,
+			style,
+			type,
+			description
+	</sql>
+
+	<sql id="conditions_maintainIcon">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="identity != null">
+				and identity = #{identity}
+			</if>
+			<if test="cssClass != null">
+				and css_class = #{cssClass}
+			</if>
+			<if test="imgSrc != null">
+				and img_src = #{imgSrc}
+			</if>
+			<if test="width != null">
+				and width = #{width}
+			</if>
+			<if test="height != null">
+				and height = #{height}
+			</if>
+			<if test="spriteSrc != null">
+				and sprite_src = #{spriteSrc}
+			</if>
+			<if test="offsetLeft != null">
+				and offset_left = #{offsetLeft}
+			</if>
+			<if test="offsetTop != null">
+				and offset_top = #{offsetTop}
+			</if>
+			<if test="style != null">
+				and style = #{style}
+			</if>
+			<if test="type != null">
+				and type = #{type}
+			</if>
+			<if test="description != null">
+				and description = #{description}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		<include refid="Base_Column_List" />
+		from maintain_icon
+		<where>
+			  and id=#{id}
+		</where>
+	</select>
+	
+	<select id="find" resultMap="BaseResultMap" parameterType="com.anjz.core.model.MaintainIcon">
+		select 
+		<include refid="Base_Column_List" />
+		from maintain_icon
+		<include refid="conditions_maintainIcon" />
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from maintain_icon
+		<where>
+			  and id=#{id}
+		</where>
+	</delete>
+	
+	<delete id="batchDeleteByIds" parameterType="java.lang.String">
+		delete from maintain_icon
+		<where>
+			and id in
+			<foreach collection="array" item="id" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+
+	<insert id="insert" parameterType="com.anjz.core.model.MaintainIcon">
+		insert into maintain_icon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			identity,
+			css_class,
+			img_src,
+			width,
+			height,
+			sprite_src,
+			offset_left,
+			offset_top,
+			style,
+			type,
+			description,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id},
+			#{identity},
+			#{cssClass},
+			#{imgSrc},
+			#{width},
+			#{height},
+			#{spriteSrc},
+			#{offsetLeft},
+			#{offsetTop},
+			#{style},
+			#{type},
+			#{description},
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.anjz.core.model.MaintainIcon">
+		insert into maintain_icon
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="identity != null">identity,</if>
+			<if test="cssClass != null">css_class,</if>
+			<if test="imgSrc != null">img_src,</if>
+			<if test="width != null">width,</if>
+			<if test="height != null">height,</if>
+			<if test="spriteSrc != null">sprite_src,</if>
+			<if test="offsetLeft != null">offset_left,</if>
+			<if test="offsetTop != null">offset_top,</if>
+			<if test="style != null">style,</if>
+			<if test="type != null">type,</if>
+			<if test="description != null">description,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="identity != null">#{identity},</if>
+			<if test="cssClass != null">#{cssClass},</if>
+			<if test="imgSrc != null">#{imgSrc},</if>
+			<if test="width != null">#{width},</if>
+			<if test="height != null">#{height},</if>
+			<if test="spriteSrc != null">#{spriteSrc},</if>
+			<if test="offsetLeft != null">#{offsetLeft},</if>
+			<if test="offsetTop != null">#{offsetTop},</if>
+			<if test="style != null">#{style},</if>
+			<if test="type != null">#{type},</if>
+			<if test="description != null">#{description},</if>
+		</trim>
+	</insert>
+
+	<update id="updateById" parameterType="com.anjz.core.model.MaintainIcon">
+		update maintain_icon
+		<set>
+			identity=#{identity},
+			css_class=#{cssClass},
+			img_src=#{imgSrc},
+			width=#{width},
+			height=#{height},
+			sprite_src=#{spriteSrc},
+			offset_left=#{offsetLeft},
+			offset_top=#{offsetTop},
+			style=#{style},
+			type=#{type},
+			description=#{description},
+		</set>
+		<where>
+			  and id=#{id}
+		</where>
+	</update>
+
+	
+
+	<update id="updateByIdSelective" parameterType="com.anjz.core.model.MaintainIcon">
+		update maintain_icon
+		<set>
+			<if test="identity != null">identity=#{identity},</if>
+			<if test="cssClass != null">css_class=#{cssClass},</if>
+			<if test="imgSrc != null">img_src=#{imgSrc},</if>
+			<if test="width != null">width=#{width},</if>
+			<if test="height != null">height=#{height},</if>
+			<if test="spriteSrc != null">sprite_src=#{spriteSrc},</if>
+			<if test="offsetLeft != null">offset_left=#{offsetLeft},</if>
+			<if test="offsetTop != null">offset_top=#{offsetTop},</if>
+			<if test="style != null">style=#{style},</if>
+			<if test="type != null">type=#{type},</if>
+			<if test="description != null">description=#{description},</if>
+		</set>
+		<where>
+			  and id=#{id}
+		</where>
+	</update>
+	
+	<!-- 分页、条件查询、排序 -->
+	<sql id="or_filters">
+		<foreach collection="searchFilter.orFilters" item="orFilter" open="(" separator="or" close=")">
+			<choose>
+				<when test='orFilter.operator.info == "前缀模糊匹配"'>
+					${orFilter.searchProperty} like concat('%', #{orFilter.value})
+				</when>
+				<when test='orFilter.operator.info == "前缀模糊不匹配"'>
+					${orFilter.searchProperty} not like concat('%', #{orFilter.value})
+				</when>
+				<when test='orFilter.operator.info == "后缀模糊匹配"'>
+					${orFilter.searchProperty} like concat(#{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "后缀模糊不匹配"'>
+					${orFilter.searchProperty} not like concat(#{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "模糊匹配"'>
+					${orFilter.searchProperty} like concat('%', #{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "不匹配"'>
+					${orFilter.searchProperty} not like concat('%', #{orFilter.value},'%')
+				</when>
+				<!-- is null is not null -->
+				<when test='orFilter.operator.info == "空" or  orFilter.operator.info == "非空"'>
+					${orFilter.searchProperty} ${orFilter.operator.symbol}
+				</when>
+				<!-- in not in -->
+				<when test='orFilter.operator.info == "包含" or orFilter.operator.info == "不包含"'>
+					${orFilter.searchProperty} ${orFilter.operator.symbol}
+					<foreach collection="orFilter.value" item="value" open="(" separator="," close=")">
+						#{value}
+					</foreach>
+				</when>
+				<otherwise>
+					 ${orFilter.searchProperty} ${orFilter.operator.symbol} #{orFilter.value}
+				</otherwise>
+			</choose>
+		</foreach>
+	</sql>
+	
+	<sql id="and_filters">
+		<foreach collection="searchFilter.andFilters" item="andFilter" open="(" separator="and" close=")">
+			<choose>
+				<when test='andFilter.operator.info == "前缀模糊匹配"'>
+					${andFilter.searchProperty} like concat('%', #{andFilter.value})
+				</when>
+				<when test='andFilter.operator.info == "前缀模糊不匹配"'>
+					${andFilter.searchProperty} not like concat('%', #{andFilter.value})
+				</when>
+				<when test='andFilter.operator.info == "后缀模糊匹配"'>
+					${andFilter.searchProperty} like concat(#{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "后缀模糊不匹配"'>
+					${andFilter.searchProperty} not like concat(#{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "模糊匹配"'>
+					${andFilter.searchProperty} like concat('%', #{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "不匹配"'>
+					${andFilter.searchProperty} not like concat('%', #{andFilter.value},'%')
+				</when>
+				<!-- is null is not null -->
+				<when test='andFilter.operator.info == "空" or  andFilter.operator.info == "非空"'>
+					${andFilter.searchProperty} ${andFilter.operator.symbol}
+				</when>
+				<!-- in not in -->
+				<when test='andFilter.operator.info == "包含" or andFilter.operator.info == "不包含"'>
+					${andFilter.searchProperty} ${andFilter.operator.symbol}
+					<foreach collection="andFilter.value" item="value" open="(" separator="," close=")">
+						#{value}
+					</foreach>
+				</when>
+				<otherwise>
+					 ${andFilter.searchProperty} ${andFilter.operator.symbol} #{andFilter.value}
+				</otherwise>
+			</choose>
+		</foreach>
+	</sql>
+	
+	<sql id="common_filter">
+		<choose>
+			<when test='searchFilter.operator.info == "前缀模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat('%', #{searchFilter.value})
+			</when>
+			<when test='searchFilter.operator.info == "前缀模糊不匹配"'>
+				 ${searchFilter.searchProperty} not like concat('%',#{searchFilter.value})
+			</when>
+			<when test='searchFilter.operator.info == "后缀模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat(#{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "后缀模糊不匹配"'>
+				 ${searchFilter.searchProperty} not like concat(#{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat('%', #{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "不匹配"'>
+				${searchFilter.searchProperty} not like concat('%',#{searchFilter.value},'%')
+			</when>
+			<!-- is null is not null -->
+			<when test='searchFilter.operator.info == "空" or  searchFilter.operator.info == "非空"'>
+			    ${searchFilter.searchProperty} ${searchFilter.operator.symbol}
+			</when>
+			<!-- in not in -->
+			<when test='searchFilter.operator.info == "包含" or searchFilter.operator.info == "不包含"'>
+				 ${searchFilter.searchProperty} ${searchFilter.operator.symbol}
+				<foreach collection="searchFilter.value" item="value" open="(" separator="," close=")">
+					#{value}
+				</foreach>
+			</when>
+			<otherwise>
+				 ${searchFilter.searchProperty} ${searchFilter.operator.symbol} #{searchFilter.value}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 分页、排序 -->
+	<select id="findAll" parameterType="com.anjz.base.entity.search.Searchable" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from maintain_icon
+		<where>
+			<if test="searchFilters != null and searchFilters.size > 0">
+				<foreach collection="searchFilters" item="searchFilter" separator="and ">
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.OrCondition and searchFilter.orFilters.size > 0">
+						<include refid="or_filters" />
+					</if>
+	
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.AndCondition  and searchFilter.andFilters.size > 0">
+						<include refid="and_filters" />
+					</if>
+		
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.Condition">
+						<include refid="common_filter" />
+					</if>	
+				</foreach>
+			</if>
+		</where>
+	
+		<if test="sort!=null">
+			<if test="sort.orders != null and sort.orders.size > 0">
+				order by
+				<foreach collection="sort.orders" item="order" separator=",">
+					${order.property} ${order.direction}
+				</foreach>
+			</if>
+		</if>
+	
+		<if test="page!=null">
+			limit #{page.offset},#{page.size}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="com.anjz.base.entity.search.Searchable" resultType="long">
+		select count(*)
+		from maintain_icon
+		<where>
+			<if test="searchFilters != null and searchFilters.size > 0">
+				<foreach collection="searchFilters" item="searchFilter" separator="and ">
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.OrCondition and searchFilter.orFilters.size > 0">
+						<include refid="or_filters" />
+					</if>
+	
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.AndCondition  and searchFilter.andFilters.size > 0">
+						<include refid="and_filters" />
+					</if>
+		
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.Condition">
+						<include refid="common_filter" />
+					</if>	
+				</foreach>
+			</if>
+		</where>
+	</select>
+</mapper>

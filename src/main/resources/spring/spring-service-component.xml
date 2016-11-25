@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.1.xsd
+			">
+
+	<!-- http服务 -->
+	<bean id="httpCallService" class="com.anjz.http.HttpCallServiceImpl"/>
+	
+	<!-- 邮件服务 -->
+	<bean id="mailSendService" class="com.anjz.message.mail.MailSendServiceImpl">
+		<property name="mailInfo">  
+	      <bean class="com.anjz.message.mail.core.MailSenderInfo">
+	      		<property name="mailServerHost" value="${mail.smtp.host}" />  
+	      		<property name="mailServerPort" value="${mail.smtp.port}" /> 
+	      		<property name="userName" value="${mail.user}" />  
+	      		<property name="password" value="${mail.password}" />  
+	      		<property name="fromAddress" value="${mail.from}" />
+	      		<property name="fromAddressAlias" value="${mail.from.alias}" />  
+	      </bean>  
+	    </property> 
+	</bean>
+	
+	<!-- 上传服务 -->
+	<bean id="fileUploadService" class="com.anjz.upload.FileUploadToLocalServiceImpl">
+		<property name="defaultBaseDir" value="${local.uploadDirectory}"/>
+		<!-- <property name="DEFAULT_MAX_SIZE" value=""/>
+		<property name="DEFAULT_FILE_NAME_LENGTH" value=""/>
+		<property name="IMAGE_EXTENSION" value=""/>
+		<property name="FLASH_EXTENSION" value=""/>
+		<property name="MEDIA_EXTENSION" value=""/>
+		<property name="DEFAULT_ALLOWED_EXTENSION" value=""/> -->
+	</bean>
+	
+	<!-- 推送服务 -->
+	<bean id="pushService" class="com.anjz.message.push.PushServiceImpl" />
+	<bean id="pushApi" class="com.anjz.message.push.PushApiImpl" />
+</beans>

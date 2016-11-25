@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- quartz触发器配置开始 -->
+    <bean name="startQuertz" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="autoClearExpiredOrDeletedmMessageTrigger" /> 
+            </list>
+        </property>
+    </bean>
+    <!-- quartz触发器配置结束 -->
+
+   
+    
+    <!--自动清理过期的消息 开始 -->
+    <bean id="autoClearExpiredOrDeletedmMessageTrigger"
+          class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="autoClearExpiredOrDeletedmMessageJobDetail" />
+        </property>
+        <property name="cronExpression">
+            <!-- 每天每分钟执行一次（测试） -->
+            <value>0 0/2 * * * ?</value>
+            <!-- 每天凌晨1点执行一次（正式） -->
+<!--             <value>0 0 1 * * ?</value> -->
+        </property>
+    </bean>
+    
+    <bean id="autoClearExpiredOrDeletedmMessageJobDetail"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="messageClearJob" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+    <bean id="messageClearJob" class="com.anjz.job.MessageClearJob" />
+    <!-- 自动清理过期的消息 结束 -->
+</beans>

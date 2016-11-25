@@ -1,0 +1,20 @@
+﻿ .bg1,.bg2,.bg3,.bg4,.bg5,.bg6{background:#0a61a6 url(..../images/login/bg1.png) center no-repeat; height:99px;}
+.bg2{background-image:url(../images/login/bg2.png); height:100px;}
+.bg3{background-image:url(../images/login/bg3.png); height:101px;}
+.bg4{background-image:url(../images/login/bg4.png); height:400px;}
+.bg5{background-image:url(../images/login/bg5.png); height:100px; text-align:center; color:#eeeeee;}
+.bg6{background-image:url(../images/login/bg6.png); height:100px; text-align:center; color:#eeeeee;}
+
+.bg4 .login{background:url(../images/login/login_bg.png) no-repeat; width:788px; height:390px; margin:0 auto; position:relative; top:-30px;}
+.bg4 .login .login-logo{margin-top:110px;margin-left:65px;}
+.bg4 .login .line{margin-top:60px; margin-left:25px;}
+.bg4 .login .denglu{margin-top:70px; width:240px;}
+.bg4 .login .denglu .dl-title{width:204px; overflow:hidden; height:40px; line-height:40px; font-size:18px; color:#3a3a3a; background:url(../images/login/biaozhi.png) left center no-repeat; padding-left:30px;}
+.bg4 .login .denglu dt{font-size:15px; width:250px; margin-top:10px; height:26px; line-height:26px; }
+.text-inputs{
+  width:178px; height:26px; line-height:26px; background:url(../images/login/input_bg.png) center repeat-x; border:1px solid #dadada; border-radius:5px;
+}
+.login-btn{background:url(../images/login/denglu.png) center no-repeat; width:82px; height:111px; background-position:0 0; display:inline-block; margin-top:130px;}
+.login-btn:hover{background-position:-83px 0;}
+    
+.error{color:red;}

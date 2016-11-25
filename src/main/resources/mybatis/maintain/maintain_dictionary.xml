@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anjz.core.dao.MaintainDictionaryDao">
+
+	<resultMap id="BaseResultMap" type="com.anjz.core.model.MaintainDictionary">
+			<id column="id" property="id" jdbcType="VARCHAR" />
+			<result column="name" property="name" jdbcType="VARCHAR" />
+			<result column="name_code" property="nameCode" jdbcType="VARCHAR" />
+			<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+			<result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+			<result column="icon" property="icon" jdbcType="VARCHAR" />
+			<result column="weight" property="weight" jdbcType="DECIMAL" />
+			<result column="is_show" property="isShow" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+			id,
+			name,
+			name_code,
+			parent_id,
+			parent_ids,
+			icon,
+			weight,
+			is_show
+	</sql>
+
+	<sql id="conditions_maintainDictionary">
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+			<if test="nameCode != null">
+				and name_code = #{nameCode}
+			</if>
+			<if test="parentId != null">
+				and parent_id = #{parentId}
+			</if>
+			<if test="parentIds != null">
+				and parent_ids = #{parentIds}
+			</if>
+			<if test="icon != null">
+				and icon = #{icon}
+			</if>
+			<if test="weight != null">
+				and weight = #{weight}
+			</if>
+			<if test="isShow != null">
+				and is_show = #{isShow}
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select 
+		<include refid="Base_Column_List" />
+		from maintain_dictionary
+		<where>
+			  and id=#{id}
+		</where>
+	</select>
+	
+	<select id="find" resultMap="BaseResultMap" parameterType="com.anjz.core.model.MaintainDictionary">
+		select 
+		<include refid="Base_Column_List" />
+		from maintain_dictionary
+		<include refid="conditions_maintainDictionary" />
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.String">
+		delete from maintain_dictionary
+		<where>
+			  and id=#{id}
+		</where>
+	</delete>
+	
+	<delete id="batchDeleteByIds" parameterType="java.lang.String">
+		delete from maintain_dictionary
+		<where>
+			  and id in 
+			  <foreach collection="array" item="id" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+
+	<insert id="insert" parameterType="com.anjz.core.model.MaintainDictionary">
+		insert into maintain_dictionary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			name,
+			name_code,
+			parent_id,
+			parent_ids,
+			icon,
+			weight,
+			is_show,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id},
+			#{name},
+			#{nameCode},
+			#{parentId},
+			#{parentIds},
+			#{icon},
+			#{weight},
+			#{isShow},
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.anjz.core.model.MaintainDictionary">
+		insert into maintain_dictionary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="nameCode != null">name_code,</if>
+			<if test="parentId != null">parent_id,</if>
+			<if test="parentIds != null">parent_ids,</if>
+			<if test="icon != null">icon,</if>
+			<if test="weight != null">weight,</if>
+			<if test="isShow != null">is_show,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="nameCode != null">#{nameCode},</if>
+			<if test="parentId != null">#{parentId},</if>
+			<if test="parentIds != null">#{parentIds},</if>
+			<if test="icon != null">#{icon},</if>
+			<if test="weight != null">#{weight},</if>
+			<if test="isShow != null">#{isShow},</if>
+		</trim>
+	</insert>
+
+	<update id="updateById" parameterType="com.anjz.core.model.MaintainDictionary">
+		update maintain_dictionary
+		<set>
+			name=#{name},
+			name_code=#{nameCode},
+			parent_id=#{parentId},
+			parent_ids=#{parentIds},
+			icon=#{icon},
+			weight=#{weight},
+			is_show=#{isShow},
+		</set>
+		<where>
+			  and id=#{id}
+		</where>
+	</update>
+
+	
+
+	<update id="updateByIdSelective" parameterType="com.anjz.core.model.MaintainDictionary">
+		update maintain_dictionary
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="nameCode != null">name_code=#{nameCode},</if>
+			<if test="parentId != null">parent_id=#{parentId},</if>
+			<if test="parentIds != null">parent_ids=#{parentIds},</if>
+			<if test="icon != null">icon=#{icon},</if>
+			<if test="weight != null">weight=#{weight},</if>
+			<if test="isShow != null">is_show=#{isShow},</if>
+		</set>
+		<where>
+			  and id=#{id}
+		</where>
+	</update>
+	
+<!-- 分页、条件查询、排序 -->
+	<sql id="or_filters">
+		<foreach collection="searchFilter.orFilters" item="orFilter" open="(" separator="or" close=")">
+			<choose>
+				<when test='orFilter.operator.info == "前缀模糊匹配"'>
+					${orFilter.searchProperty} like concat('%', #{orFilter.value})
+				</when>
+				<when test='orFilter.operator.info == "前缀模糊不匹配"'>
+					${orFilter.searchProperty} not like concat('%', #{orFilter.value})
+				</when>
+				<when test='orFilter.operator.info == "后缀模糊匹配"'>
+					${orFilter.searchProperty} like concat(#{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "后缀模糊不匹配"'>
+					${orFilter.searchProperty} not like concat(#{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "模糊匹配"'>
+					${orFilter.searchProperty} like concat('%', #{orFilter.value}, '%')
+				</when>
+				<when test='orFilter.operator.info == "不匹配"'>
+					${orFilter.searchProperty} not like concat('%', #{orFilter.value},'%')
+				</when>
+				<!-- is null is not null -->
+				<when test='orFilter.operator.info == "空" or  orFilter.operator.info == "非空"'>
+					${orFilter.searchProperty} ${orFilter.operator.symbol}
+				</when>
+				<!-- in not in -->
+				<when test='orFilter.operator.info == "包含" or orFilter.operator.info == "不包含"'>
+					${orFilter.searchProperty} ${orFilter.operator.symbol}
+					<foreach collection="orFilter.value" item="value" open="(" separator="," close=")">
+						#{value}
+					</foreach>
+				</when>
+				<otherwise>
+					 ${orFilter.searchProperty} ${orFilter.operator.symbol} #{orFilter.value}
+				</otherwise>
+			</choose>
+		</foreach>
+	</sql>
+	
+	<sql id="and_filters">
+		<foreach collection="searchFilter.andFilters" item="andFilter" open="(" separator="and" close=")">
+			<choose>
+				<when test='andFilter.operator.info == "前缀模糊匹配"'>
+					${andFilter.searchProperty} like concat('%', #{andFilter.value})
+				</when>
+				<when test='andFilter.operator.info == "前缀模糊不匹配"'>
+					${andFilter.searchProperty} not like concat('%', #{andFilter.value})
+				</when>
+				<when test='andFilter.operator.info == "后缀模糊匹配"'>
+					${andFilter.searchProperty} like concat(#{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "后缀模糊不匹配"'>
+					${andFilter.searchProperty} not like concat(#{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "模糊匹配"'>
+					${andFilter.searchProperty} like concat('%', #{andFilter.value}, '%')
+				</when>
+				<when test='andFilter.operator.info == "不匹配"'>
+					${andFilter.searchProperty} not like concat('%', #{andFilter.value},'%')
+				</when>
+				<!-- is null is not null -->
+				<when test='andFilter.operator.info == "空" or  andFilter.operator.info == "非空"'>
+					${andFilter.searchProperty} ${andFilter.operator.symbol}
+				</when>
+				<!-- in not in -->
+				<when test='andFilter.operator.info == "包含" or andFilter.operator.info == "不包含"'>
+					${andFilter.searchProperty} ${andFilter.operator.symbol}
+					<foreach collection="andFilter.value" item="value" open="(" separator="," close=")">
+						#{value}
+					</foreach>
+				</when>
+				<otherwise>
+					 ${andFilter.searchProperty} ${andFilter.operator.symbol} #{andFilter.value}
+				</otherwise>
+			</choose>
+		</foreach>
+	</sql>
+	
+	<sql id="common_filter">
+		<choose>
+			<when test='searchFilter.operator.info == "前缀模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat('%', #{searchFilter.value})
+			</when>
+			<when test='searchFilter.operator.info == "前缀模糊不匹配"'>
+				 ${searchFilter.searchProperty} not like concat('%',#{searchFilter.value})
+			</when>
+			<when test='searchFilter.operator.info == "后缀模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat(#{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "后缀模糊不匹配"'>
+				 ${searchFilter.searchProperty} not like concat(#{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "模糊匹配"'>
+				 ${searchFilter.searchProperty} like concat('%', #{searchFilter.value}, '%')
+			</when>
+			<when test='searchFilter.operator.info == "不匹配"'>
+				${searchFilter.searchProperty} not like concat('%',#{searchFilter.value},'%')
+			</when>
+			<!-- is null is not null -->
+			<when test='searchFilter.operator.info == "空" or  searchFilter.operator.info == "非空"'>
+			    ${searchFilter.searchProperty} ${searchFilter.operator.symbol}
+			</when>
+			<!-- in not in -->
+			<when test='searchFilter.operator.info == "包含" or searchFilter.operator.info == "不包含"'>
+				 ${searchFilter.searchProperty} ${searchFilter.operator.symbol}
+				<foreach collection="searchFilter.value" item="value" open="(" separator="," close=")">
+					#{value}
+				</foreach>
+			</when>
+			<otherwise>
+				 ${searchFilter.searchProperty} ${searchFilter.operator.symbol} #{searchFilter.value}
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 分页、排序 -->
+	<select id="findAll" parameterType="com.anjz.base.entity.search.Searchable" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from maintain_dictionary
+		<where>
+			<if test="searchFilters != null and searchFilters.size > 0">
+				<foreach collection="searchFilters" item="searchFilter" separator="and ">
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.OrCondition and searchFilter.orFilters.size > 0">
+						<include refid="or_filters" />
+					</if>
+	
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.AndCondition  and searchFilter.andFilters.size > 0">
+						<include refid="and_filters" />
+					</if>
+		
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.Condition">
+						<include refid="common_filter" />
+					</if>	
+				</foreach>
+			</if>
+		</where>
+	
+		<if test="sort!=null">
+			<if test="sort.orders != null and sort.orders.size > 0">
+				order by
+				<foreach collection="sort.orders" item="order" separator=",">
+					 ${order.property}  ${order.direction}
+				</foreach>
+			</if>
+		</if>
+	
+		<if test="page!=null">
+			limit #{page.offset},#{page.size}
+		</if>
+	</select>
+	
+	<select id="count" parameterType="com.anjz.base.entity.search.Searchable" resultType="long">
+		select count(*)
+		from maintain_dictionary
+		<where>
+			<if test="searchFilters != null and searchFilters.size > 0">
+				<foreach collection="searchFilters" item="searchFilter" separator="and ">
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.OrCondition and searchFilter.orFilters.size > 0">
+						<include refid="or_filters" />
+					</if>
+	
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.AndCondition  and searchFilter.andFilters.size > 0">
+						<include refid="and_filters" />
+					</if>
+		
+					<if test="searchFilter instanceof com.anjz.base.entity.search.filter.Condition">
+						<include refid="common_filter" />
+					</if>	
+				</foreach>
+			</if>
+		</where>
+	</select>
+</mapper>

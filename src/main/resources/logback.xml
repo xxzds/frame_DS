@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <property resource="config.properties" />
+
+	 <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->  
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->  
+	 <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.dir}/%d{yyyy-MM-dd}.system.log
+            </fileNamePattern>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level - %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+ 	</appender>
+	
+	
+	<!--精确设置每个包下面的日志 -->
+	<logger name="com.anjz.core.dao" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	
+	<logger name="org.springframework.cache.ehcache.EhCacheCacheManager" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger> 
+
+	<root>
+		<level value="info" />  
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+	</root>
+</configuration>

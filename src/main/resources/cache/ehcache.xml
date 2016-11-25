@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+	<diskStore path="java.io.tmpdir"/>
+	
+	<!-- 
+	eternal:Element是否永久有效，一但设置了，timeout将不起作用。 
+	timeToIdleSeconds: 设置Element在失效前的允许闲置时间。仅当element不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大。 
+	timeToLiveSeconds:设置Element在失效前允许存活时间。最大时间介于创建时间和失效时间之间。仅当element不是永久有效时使用，默认是0.也就是element存活时间无穷大。 
+	-->
+	
+	<defaultCache
+		maxElementsInMemory="10000"
+		eternal="false"
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120"
+		overflowToDisk="true"
+		diskSpoolBufferSizeMB="30"
+		maxElementsOnDisk="10000000"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"/>
+		
+	<!-- 登录记录缓存 锁定10分钟 -->
+    <cache name="passwordRetryCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+    
+    <!-- session的缓存 -->
+    <cache name="shiro-activeSessionCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+		
+	
+	<!-- 授权缓存 -->
+	<cache name="authorizationCache"
+		maxElementsInMemory="2048" 
+		eternal="false" 
+		timeToIdleSeconds="3600" 
+		timeToLiveSeconds="3600"
+		overflowToDisk="false" 
+		diskSpoolBufferSizeMB="30" 
+		maxElementsOnDisk="1024" 
+		diskPersistent="false"/>
+		
+		
+	<!-- 字典的缓存 -->
+	<cache name="ditionaryCache"
+		maxElementsInMemory="2048" 
+		eternal="true"/>
+		
+	<!-- 当前用户的缓存 -->
+	<cache name="currentUserCache"
+		maxElementsInMemory="2048" 
+		eternal="false" 
+		timeToIdleSeconds="3600" 
+		timeToLiveSeconds="3600"
+		overflowToDisk="false" 
+		diskSpoolBufferSizeMB="30" 
+		maxElementsOnDisk="1024" 
+		diskPersistent="false"/>
+		
+	<!-- 微信缓存 有效一个小时  包括access_token,ticket -->
+	<cache name="wechatCache"
+		maxElementsInMemory="2048" 
+		eternal="false" 
+		timeToIdleSeconds="3600" 
+		timeToLiveSeconds="3600"
+		overflowToDisk="false" 
+		diskSpoolBufferSizeMB="30" 
+		maxElementsOnDisk="1024" 
+		diskPersistent="false"/>
+	
+		
+	<!-- test -->
+	<cache name="myCache"
+		maxElementsInMemory="2048" 
+		eternal="false" 
+		timeToIdleSeconds="3600" 
+		timeToLiveSeconds="3600"
+		overflowToDisk="false" 
+		diskSpoolBufferSizeMB="30" 
+		maxElementsOnDisk="1024" 
+		diskPersistent="false"/>
+</ehcache>
