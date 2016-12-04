@@ -20,6 +20,7 @@ import com.anjz.core.model.wechat.qrcode.QrcodeCreateEntity.ActionInfo;
 import com.anjz.core.model.wechat.qrcode.QrcodeCreateEntity.ActionName;
 import com.anjz.core.model.wechat.qrcode.QrcodeCreateEntity.Scene;
 import com.anjz.core.service.intf.wechat.WechatService;
+import com.anjz.http.HttpCallService;
 import com.anjz.util.PropertiesUtil;
 import com.google.common.collect.Lists;
 
@@ -31,6 +32,9 @@ public class WechatTest extends BaseTest{
 	
 	@Resource
 	private WechatService wechatService;
+	
+	@Resource
+	private HttpCallService httpCallService;
 	
 	/**
 	 * 获取ticket,ticket是公众号用于调用微信JS接口的临时票据
@@ -164,5 +168,24 @@ public class WechatTest extends BaseTest{
 		entity.setAction_info(actionInfo);
 				
 		logger.info(wechatService.crateQrcode(entity));
+	}
+	
+	/**
+	 * 客服发送消息
+	 * ZAEQh27HbKSZtEs3x_kRle9_UbM5gfNegFh3IR9pUc741TdDHAAf43tXwb82H_yyd04qfQiJPxAtQhTTzQRquLFuO852t5OPgIs1br5aS1jGQ1W-6Z43FjRP2D-bnX4mJFJbAGARNR
+	 */
+	@Test
+	public void custmSend(){
+		String custom_send_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.custom_send.url");
+		//格式化
+		custom_send_url=MessageFormat.format(custom_send_url,wechatService.getAccessToken()); 
+		logger.info(custom_send_url);
+		
+		
+		//文本消息
+//		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"msgtype\":\"text\",\"text\":{\"content\":\"Hello World\"}}";
+		//图片消息
+		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"msgtype\":\"image\",\"image\":{\"media_id\":\"84R1aTf-rpxsgUo6pO4Uyw-CpzciV1QmrUCxu8xrfyJUOsy_ze7RMHmW0YnRpR_I\"}}";
+		httpCallService.urlConnectionPost(custom_send_url, params);
 	}
 }
