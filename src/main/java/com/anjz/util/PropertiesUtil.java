@@ -4,7 +4,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 import java.util.Properties;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.anjz.exception.BusinessException;
+import com.google.common.collect.Maps;
 
 /**
  * 读取properties文件的工具类
@@ -12,6 +18,7 @@ import java.util.Properties;
  * @date 2016年7月28日下午9:06:56
  */
 public class PropertiesUtil {
+	private static Map<String, PropertiesUtil> resoures = Maps.newHashMap();
 	
 	private Properties properties=new Properties();
 	
@@ -34,7 +41,14 @@ public class PropertiesUtil {
 	}
 	
 	public static PropertiesUtil getInstance(String path){
-		return new PropertiesUtil(path);
+		if(StringUtils.isEmpty(path)){
+			throw new BusinessException("路径不能为空");
+		}
+		
+		if(resoures.get(path) ==null){
+			resoures.put(path, new PropertiesUtil(path));
+		}
+		return resoures.get(path);
 	}
 	
 	
