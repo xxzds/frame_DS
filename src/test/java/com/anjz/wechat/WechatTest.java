@@ -1,6 +1,7 @@
 package com.anjz.wechat;
 
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -62,9 +63,12 @@ public class WechatTest extends BaseTest{
 		
 		List<Button> buttons=Lists.newArrayList();
 		Button button=new Button();
+//		button.setType("click");
+//		button.setName("今日歌曲");
+//		button.setKey("V1001_TODAY_MUSIC");
 		button.setType("click");
-		button.setName("今日歌曲");
-		button.setKey("V1001_TODAY_MUSIC");
+		button.setName("运势测试");
+		button.setKey("V1001_LUCK_TEST");
 		buttons.add(button);		
 
 		List<Button> buttonxList=Lists.newArrayList();
@@ -115,9 +119,10 @@ public class WechatTest extends BaseTest{
 		
 		Button buttony=new Button();
 		buttony.setType("view");
-		buttony.setName("寻找货源");
-		buttony.setUrl("http://wi15820987.51mypc.cn/hly_wx/findgoods");
+		buttony.setName("第三方页面");
+//		buttony.setUrl("http://wi15820987.51mypc.cn/hly_wx/findgoods");
 //		buttony.setUrl("http://wx.ahggwl.com/hly_wx/findgoods");
+		buttony.setUrl("http://wi15820987.51mypc.cn/hly_wxd/test/toTest");
 		buttons.add(buttony);
 		
 		buttons.add(buttonx);
@@ -168,6 +173,20 @@ public class WechatTest extends BaseTest{
 		entity.setAction_info(actionInfo);
 				
 		logger.info(wechatService.crateQrcode(entity));
+	}
+	
+	
+	/**
+	 * 新增临时素材
+	 */
+	@Test
+	public void mediaUpload(){
+		String meida_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.meida_url");
+		//格式化
+		meida_url=MessageFormat.format(meida_url,wechatService.getAccessToken(),"image"); 
+		
+		File file=new File("C:/Users/Administrator/Desktop/tankuang.png");
+		httpCallService.httpUpload(meida_url, file);
 	}
 	
 	/**

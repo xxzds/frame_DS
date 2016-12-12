@@ -28,10 +28,18 @@ public interface HttpCallService {
     
     PlainResult<String> httpUpload(String requestUri,File file);
     
+    PlainResult<String> httpUpload(String requestUri,File file,String fileName);
+    
     PlainResult<String> httpUpload(String requestUri,File file,Map<String, String> params);
+    
+    PlainResult<String> httpUpload(String requestUri,File file,String fileName,Map<String, String> params);
     
     PlainResult<String> httpUpload(String requestUri,List<File> files);
     
+    PlainResult<String> httpUpload(String requestUri,List<File> files,String fileName);
+    
     PlainResult<String> httpUpload(String requestUri,List<File> files,Map<String, String> params);
+    
+    PlainResult<String> httpUpload(String requestUri,List<File> files,String fileName,Map<String, String> params);
 
 }

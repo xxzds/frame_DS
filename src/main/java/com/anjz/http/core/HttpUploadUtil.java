@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -28,18 +29,33 @@ public class HttpUploadUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(HttpUploadUtil.class);
 
-		
+	
 	/**
 	 * 执行上传请求
-	 * @param requestUri  请求上传地址
-	 * @param files   上传文件集合
-	 * @param params   普通参数
+	 * @param requestUri       请求上传地址
+	 * @param files            上传文件集合
+	 * @param params           普通参数
 	 * @param responseHandler  回调方法，处理响应数据
 	 * @return
 	 */
 	public static PlainResult<String> execute(final String requestUri, List<File> files, Map<String, String> params,
+			final ResponseHandler<PlainResult<String>> responseHandler){
+		return execute(requestUri, files, null, params, responseHandler);
+	}
+		
+
+	/**
+	 * 执行上传请求
+	 * @param requestUri        请求上传地址
+	 * @param files				上传文件集合
+	 * @param fileName			上传文件对应的名称，如果为空，默认为“file”
+	 * @param params			普通参数
+	 * @param responseHandler   回调方法，处理响应数据
+	 * @return
+	 */
+	public static PlainResult<String> execute(final String requestUri, List<File> files,String fileName, Map<String, String> params,
 			final ResponseHandler<PlainResult<String>> responseHandler) {
-		if(org.apache.commons.lang.StringUtils.isBlank(requestUri)){
+		if(StringUtils.isBlank(requestUri)){
 			return new PlainResult<String>().setErrorMessage(CommonResultCode.ILLEGAL_PARAM, requestUri);
 		}
 		
@@ -52,10 +68,14 @@ public class HttpUploadUtil {
 			 HttpPost httppost = new HttpPost(requestUri);
 			 MultipartEntityBuilder multipartEntityBuilder= MultipartEntityBuilder.create();
 			 
+			 if(StringUtils.isBlank(fileName)){
+				 fileName="file";
+			 }
+			 
 			 //文件参数
 			 for(File file:files){
 				 FileBody fileBody = new FileBody(file);
-				 multipartEntityBuilder.addPart("file", fileBody);
+				 multipartEntityBuilder.addPart(fileName, fileBody);
 			 }
 			 
 			 //普通参数

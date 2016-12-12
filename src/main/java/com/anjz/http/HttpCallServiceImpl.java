@@ -73,6 +73,13 @@ public class HttpCallServiceImpl implements HttpCallService {
 		files.add(file);
 		return HttpUploadUtil.execute(requestUri, files, null, defaultResponseHandler);
 	}
+	
+	@Override
+	public PlainResult<String> httpUpload(String requestUri,File file,String fileName){
+		List<File> files=new ArrayList<File>();
+		files.add(file);
+		return HttpUploadUtil.execute(requestUri, files, fileName,null, defaultResponseHandler);
+	}
 
 	@Override
 	public PlainResult<String> httpUpload(String requestUri, File file, Map<String, String> params) {
@@ -80,15 +87,31 @@ public class HttpCallServiceImpl implements HttpCallService {
 		files.add(file);
 		return HttpUploadUtil.execute(requestUri, files, params, defaultResponseHandler);
 	}
+	
+	public PlainResult<String> httpUpload(String requestUri,File file,String fileName,Map<String, String> params){
+		List<File> files=new ArrayList<File>();
+		files.add(file);
+		return HttpUploadUtil.execute(requestUri, files, fileName, params, defaultResponseHandler);
+	}
 
 	@Override
 	public PlainResult<String> httpUpload(String requestUri, List<File> files) {
 		return HttpUploadUtil.execute(requestUri, files, null, defaultResponseHandler);
 	}
+	
+	@Override
+	public PlainResult<String> httpUpload(String requestUri,List<File> files,String fileName){
+		return HttpUploadUtil.execute(requestUri, files,fileName, null, defaultResponseHandler);
+	}
 
 	@Override
 	public PlainResult<String> httpUpload(String requestUri, List<File> files, Map<String, String> params) {
 		return HttpUploadUtil.execute(requestUri, files, params, defaultResponseHandler);
+	}
+	
+	@Override
+	public PlainResult<String> httpUpload(String requestUri,List<File> files,String fileName,Map<String, String> params){
+		return HttpUploadUtil.execute(requestUri, files,fileName, params, defaultResponseHandler);
 	}
 
 }
