@@ -2,6 +2,7 @@ package com.anjz.wechat;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
@@ -133,6 +135,20 @@ public class WechatTest extends BaseTest{
 		System.out.println(JSON.toJSONString(menu));
 		
 		wechatService.createMenu(menu);			
+	}
+	
+	/**
+	 * 定义菜单创建
+	 * @throws IOException 
+	 */
+	@Test
+	public void createMenuTest2() throws IOException{
+		String pathStr = WechatTest.class.getClassLoader().getResource("menu.json").getFile();
+		String jsonStr=FileUtils.readFileToString(new File(pathStr), "utf-8");
+		logger.info(jsonStr);
+		
+		wechatService.createMenu(jsonStr);		
+		
 	}
 	
 	/**

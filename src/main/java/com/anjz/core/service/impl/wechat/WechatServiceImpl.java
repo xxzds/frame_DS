@@ -153,6 +153,31 @@ public class WechatServiceImpl  implements WechatService{
 	}
 	
 	/**
+	 * 自定义菜单创建
+	 * 
+	 * @param jsonStr  菜单json字符串
+	 * @return
+	 */
+	public BaseResult createMenu(String jsonStr) {
+		BaseResult result=new BaseResult();
+		
+		String create_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.create_url");		
+		//格式化
+		create_url=MessageFormat.format(create_url,((WechatService)AopContext.currentProxy()).getAccessToken());
+		
+		PlainResult<String> responseResult= httpCallService.urlConnectionPost(create_url, jsonStr);
+		if(!responseResult.isSuccess()){
+			throw new BusinessException(responseResult.getMessage());
+		}
+		JSONObject object= JSON.parseObject(responseResult.getData());
+		Integer errcode= object.getInteger("errcode");
+		if(errcode != 0){
+			result.setErrorMessage(errcode, object.getString("errmsg"));
+		}
+		return result;
+	}
+	
+	/**
 	 * 菜单查询
 	 * @return
 	 */

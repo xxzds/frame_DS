@@ -41,10 +41,17 @@ public interface WechatService {
 	
 	/**
 	 * 自定义菜单创建
-	 * @param menu
+	 * @param menu    菜单对象
 	 * @return
 	 */
 	public BaseResult createMenu(MenuEntity menu);
+	
+	/**
+	 * 自定义菜单创建
+	 * @param jsonStr  菜单json字符串
+	 * @return
+	 */
+	public BaseResult createMenu(String jsonStr);
 	
 	/**
 	 * 菜单查询
