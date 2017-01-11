@@ -331,4 +331,46 @@ public class WechatServiceImpl  implements WechatService{
 		
 		return ticket;		
 	}
+	
+	/**
+	 * 发送客服消息
+	 * @param contentJsonStr  发送的内容，
+	 * @return
+	 */
+	public BaseResult custmSend(String contentJsonStr){
+		BaseResult result = new BaseResult();		
+		String custom_send_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.custom_send_url");
+		//格式化
+		custom_send_url=MessageFormat.format(custom_send_url,((WechatService)AopContext.currentProxy()).getAccessToken()); 
+		PlainResult<String> responseResult = httpCallService.urlConnectionPost(custom_send_url, contentJsonStr);
+		if(!responseResult.isSuccess()){
+			throw new BusinessException(responseResult.getMessage());
+		}		
+		FailEntity failEntity=JSON.parseObject(responseResult.getData(), FailEntity.class);
+		if(failEntity.getErrcode()!=0){
+			result.setErrorMessage(failEntity.getErrmsg());
+		}
+		return result;
+	}
+	
+	/**
+	 * 发送模板消息
+	 * @param contentJsonStr
+	 * @return
+	 */
+	public BaseResult templateSend(String contentJsonStr){
+		BaseResult result = new BaseResult();
+		String template_url = PropertiesUtil.getInstance("wechat.properties").getValue("wechat.template_url");
+		//格式化
+		template_url=MessageFormat.format(template_url,((WechatService)AopContext.currentProxy()).getAccessToken());
+		PlainResult<String> responseResult = httpCallService.urlConnectionPost(template_url, contentJsonStr);
+		if(!responseResult.isSuccess()){
+			throw new BusinessException(responseResult.getMessage());
+		}		
+		FailEntity failEntity=JSON.parseObject(responseResult.getData(), FailEntity.class);
+		if(failEntity.getErrcode()!=0){
+			result.setErrorMessage(failEntity.getErrmsg());
+		}
+		return result;
+	}
 }

@@ -96,4 +96,18 @@ public interface WechatService {
 	 */
 	public String crateQrcode(QrcodeCreateEntity entity);
 	
+	/**
+	 * 发送客服消息
+	 * @param contentJsonStr  发送的内容，
+	 * @return
+	 */
+	public BaseResult custmSend(String contentJsonStr);
+	
+	/**
+	 * 发送模板消息
+	 * @param contentJsonStr
+	 * @return
+	 */
+	public BaseResult templateSend(String contentJsonStr);
+	
 }

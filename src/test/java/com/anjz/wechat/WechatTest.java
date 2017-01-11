@@ -24,6 +24,7 @@ import com.anjz.core.model.wechat.qrcode.QrcodeCreateEntity.ActionName;
 import com.anjz.core.model.wechat.qrcode.QrcodeCreateEntity.Scene;
 import com.anjz.core.service.intf.wechat.WechatService;
 import com.anjz.http.HttpCallService;
+import com.anjz.result.BaseResult;
 import com.anjz.util.PropertiesUtil;
 import com.google.common.collect.Lists;
 
@@ -211,7 +212,7 @@ public class WechatTest extends BaseTest{
 	 */
 	@Test
 	public void custmSend(){
-		String custom_send_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.custom_send.url");
+		String custom_send_url= PropertiesUtil.getInstance("wechat.properties").getValue("wechat.custom_send_url");
 		//格式化
 		custom_send_url=MessageFormat.format(custom_send_url,wechatService.getAccessToken()); 
 		logger.info(custom_send_url);
@@ -222,5 +223,47 @@ public class WechatTest extends BaseTest{
 		//图片消息
 		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"msgtype\":\"image\",\"image\":{\"media_id\":\"84R1aTf-rpxsgUo6pO4Uyw-CpzciV1QmrUCxu8xrfyJUOsy_ze7RMHmW0YnRpR_I\"}}";
 		httpCallService.urlConnectionPost(custom_send_url, params);
+	}
+	
+	
+	/**
+	 * 发送模板消息
+	 */
+	@Test
+	public void custmSend2(){
+		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"msgtype\":\"image\",\"image\":{\"media_id\":\"84R1aTf-rpxsgUo6pO4Uyw-CpzciV1QmrUCxu8xrfyJUOsy_ze7RMHmW0YnRpR_I\"}}";
+		BaseResult result = wechatService.custmSend(params);
+		logger.info(result.isSuccess()+":"+result.getMessage());
+	}
+	
+	
+	/**
+	 * 模板发送消息
+	 */
+	@Test
+	public void templateSend(){
+		String template_url = PropertiesUtil.getInstance("wechat.properties").getValue("wechat.template_url");
+		//格式化
+		template_url=MessageFormat.format(template_url,wechatService.getAccessToken()); 		
+		//内容
+		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"template_id\":\"zZHjry-iRMLIOJ2N-siK9z7WSFa2DfU_prjUxzZTcYA\",\"url\":\"http://m.tooklili.com\"}";	
+		httpCallService.urlConnectionPost(template_url, params);		
+	}
+	
+	/**
+	 * 发送模板消息
+	 * @throws IOException 
+	 */
+	@Test
+	public void templateSend2() throws IOException{
+//		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"template_id\":\"zZHjry-iRMLIOJ2N-siK9z7WSFa2DfU_prjUxzZTcYA\",\"url\":\"http://m.tooklili.com\"}";	
+		
+//		String params="{\"touser\":\"oiSltvy4dF0mRd8iA3BndVmIcG2I\",\"template_id\":\"sgGJgj-6ffjg45ocKeXjlcvOo5wlb6kYqTOTE2koHjk\",\"url\":\"http://m.tooklili.com\",\"data\":{\"User\":{\"value\":\"丁先生\",\"color\":\"#173177\"}}}";	
+		String pathStr = WechatTest.class.getClassLoader().getResource("template.json").getFile();
+		String params=FileUtils.readFileToString(new File(pathStr), "utf-8");
+		
+		logger.info("请求参数:"+params);
+		BaseResult result = wechatService.templateSend(params);
+		logger.info(result.isSuccess()+":"+result.getMessage());
 	}
 }
