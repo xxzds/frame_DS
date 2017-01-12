@@ -283,5 +283,5 @@ public class ReceiveXmlEntity {
 	}
 	public void setMenuId(String menuId) {
 		MenuId = menuId;
-	}	
+	}
 }
