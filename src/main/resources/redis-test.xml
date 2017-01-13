@@ -50,3 +50,23 @@
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 	</bean>
+	
+ Redis settings
+#sentinel_node_1
+redis.sentinel1.host=192.2.2.13
+redis.sentinel1.port=26479
+#sentinel_node_2
+redis.sentinel2.host=192.2.2.13
+redis.sentinel2.port=26480
+#sentinel_node_3
+redis.sentinel3.host=192.2.2.13
+redis.sentinel3.port=26481
+#sentinel_auth
+redis.sentinel.masterName=mymaster
+redis.sentinel.password=hthl./123456
+
+redis.maxIdle=500
+redis.maxTotal=5000
+redis.maxWaitTime=1000
+redis.minIdle=300
+redis.testOnBorrow=true
