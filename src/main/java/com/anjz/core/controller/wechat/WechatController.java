@@ -167,6 +167,12 @@ public class WechatController {
 		return "/wechat/authorize/callback";
 	}
 	
+	/**
+	 * 网页-通过js调用微信功能
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("web")
 	public String web(Model model,HttpServletRequest request){	
 		

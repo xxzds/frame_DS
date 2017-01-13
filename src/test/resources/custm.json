@@ -1,0 +1,8 @@
+ {
+     "button":[     
+       {	
+               "type":"view",
+               "name":"JS-SDK",
+               "url":"http://wi15820987.51mypc.cn/kj/wechat/web"
+        }]
+ }

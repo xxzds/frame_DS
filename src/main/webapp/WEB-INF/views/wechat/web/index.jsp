@@ -137,7 +137,7 @@
   wx.config({
       debug: false,
       appId: '${signPackage.appid}',
-      timestamp: ${signPackage.timestamp},
+      timestamp: '${signPackage.timestamp}',
       nonceStr: '${signPackage.nonceStr}',
       signature: '${signPackage.signature}',
       jsApiList: [

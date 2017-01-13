@@ -146,6 +146,7 @@ public class WechatTest extends BaseTest{
 	public void createMenuTest2() throws IOException{
 //		String pathStr = WechatTest.class.getClassLoader().getResource("menu.json").getFile();
 		String pathStr = WechatTest.class.getClassLoader().getResource("wt.json").getFile();
+//		String pathStr = WechatTest.class.getClassLoader().getResource("custm.json").getFile();
 		String jsonStr=FileUtils.readFileToString(new File(pathStr), "utf-8");
 		logger.info(jsonStr);
 		
