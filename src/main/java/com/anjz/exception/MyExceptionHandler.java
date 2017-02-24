@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,8 +34,13 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
 			mv.setViewName("error");
 		}
 		
-		log.error(ex.getMessage());
-		ex.printStackTrace();
+		//异常信息
+		String errorMesage="";
+		if(handler instanceof HandlerMethod){
+			HandlerMethod handlerMethod =(HandlerMethod)handler;
+			errorMesage="类名："+handlerMethod.getBean().getClass().getName()+",方法名："+handlerMethod.getMethod().getName();
+		}		
+		log.error(errorMesage, ex);
 
 		return mv;
 	}

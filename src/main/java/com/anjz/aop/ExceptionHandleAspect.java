@@ -30,13 +30,18 @@ public class ExceptionHandleAspect {
     public Object handleException(ProceedingJoinPoint joinPoint) throws Throwable {
         Object result = null;
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+                
+        //目标对象
+        String className = joinPoint.getTarget().getClass().getName();
+        //目标方法
+        String methodName = signature.getName();
 
         Class returnType = signature.getReturnType();
         try {
             result = joinPoint.proceed();
         } catch (Throwable ex) {
             //log error msg
-            logError(signature.toString(), ex);
+            logError(className,methodName, ex);
 
             //translate exception to BaseResult
             result = ExceptionTranslator.translate(ex, returnType);
@@ -50,23 +55,22 @@ public class ExceptionHandleAspect {
         return result;
     }
 
-    private void logError(String method, Throwable ex) {
-        logger.error("exception throwed by method: {}, error is {}", method, ex.getMessage());
-        ex.printStackTrace();
+    private void logError(String className, String methodName, Throwable ex) {
+    	String errorMesage="exception throwed by class："+className+", method: "+methodName;
+        logger.error(errorMesage, ex);
         if (logger.isDebugEnabled()) {
-            logger.debug(method, ex);
+            logger.debug(errorMesage, ex);
         }
     }
 
     private static class ExceptionTranslator {
         public static Object translate(Throwable ex, Class returnType) {
             IErrorCode rc = CommonResultCode.DEFAULT_INTERNAL_ERROR;
-            //String args = ex.getMessage();
 
             if (ex instanceof DataAccessException) {
                 rc = CommonResultCode.ERROR_DB;
             } else if (ex instanceof BusinessException) {
-                return ResultFactory.createResult(CommonResultCode.BIZ_ERROR, returnType, ex.getMessage());
+                return ResultFactory.createResult(((BusinessException) ex).getCode(), returnType, ex.getMessage());
             }
 
             return ResultFactory.createResult(rc, returnType);
@@ -75,7 +79,12 @@ public class ExceptionHandleAspect {
 
     private static class ResultFactory {
         static Object createResult(IErrorCode rc, Class returnType, Object... args) {
-            BaseResult result = null;
+        	String message = String.format(rc.getMessage(), args);
+            return createResult(rc.getCode(), returnType, message);
+        }
+        
+        static Object createResult(int code, Class returnType, String message) {
+        	BaseResult result = null;
             if (PlainResult.class.equals(returnType)) {
                 result = new PlainResult();
             } else if (ListResult.class.equals(returnType)) {
@@ -86,8 +95,7 @@ public class ExceptionHandleAspect {
             	//如果返回值不是返回值不是BaseResult自己或父类，返回null
             	return null;
             }
-
-            result.setErrorMessage(rc, args);
+            result.setErrorMessage(code, message);
             return result;
         }
     }

@@ -151,7 +151,8 @@
             	/wechat/** = setCommonData
             	/tologin = setCommonData
                 /login = jCaptchaValidate
-                /logout = logout           
+                /logout = logout   
+                /test/**=anon    <!--测试不需要登录  -->        
                 /** = user,sysUser,online,setCommonData
             </value>
         </property>
