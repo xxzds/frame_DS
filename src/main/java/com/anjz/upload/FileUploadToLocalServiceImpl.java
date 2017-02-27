@@ -320,7 +320,6 @@ public class FileUploadToLocalServiceImpl implements FileUploadService {
         } else {
             filename = baseDir + File.separator + filename;
         }
-
         return filename;
     }
     
@@ -347,7 +346,7 @@ public class FileUploadToLocalServiceImpl implements FileUploadService {
     
     /**
      * 编码文件名,默认格式为：
-     * 1、'_'替换为 ' '
+     * 1、'_'替换为 ''
      * 2、hex(md5(filename + now nano time + counter++))
      * 3、[2]_原始文件名
      *
@@ -355,7 +354,7 @@ public class FileUploadToLocalServiceImpl implements FileUploadService {
      * @return
      */
     private String encodingFilename(String filename) {
-        filename = filename.replace("_", " ");
+        filename = filename.replace("_", "");
         filename = Coder.encryptMD5(filename + System.nanoTime()+ counter++) + "_" + filename;
         return filename;
     }	
