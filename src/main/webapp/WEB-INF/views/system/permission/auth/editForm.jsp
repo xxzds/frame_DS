@@ -303,7 +303,7 @@
                 
                 var groupType = '${type eq 'user_group' ? 'user' : 'organization'}';
                 $('.btn-search_group').click(function(){
-            		$.app.modalDialog("分组信息", "${ctx}/system/group/selectGroup?search.type|eq="+groupType,
+            		$.app.modalDialog("分组信息", "${ctx}/system/group/selectGroup?search.type-eq="+groupType,
             				 {
             			 		 ok:true,
         	    				 height:300,

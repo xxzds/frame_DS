@@ -2,10 +2,10 @@
 
 <form id="searchForm" class="form-inline search-form" data-change-search="true">
 
-    <esform:label path="search.name|like">角色名称</esform:label>
-    <esform:input path="search.name|like" cssClass="input-medium" placeholder="模糊查询"/>
-    <esform:label path="search.role|like">角色标识</esform:label>
-    <esform:input path="search.role|like" cssClass="input-small" placeholder="模糊查询"/>
+    <esform:label path="search.name-like">角色名称</esform:label>
+    <esform:input path="search.name-like" cssClass="input-medium" placeholder="模糊查询"/>
+    <esform:label path="search.role-like">角色标识</esform:label>
+    <esform:input path="search.role-like" cssClass="input-small" placeholder="模糊查询"/>
 
     &nbsp;&nbsp;
     <input type="submit" class="btn " value="查询"/>

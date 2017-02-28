@@ -25,8 +25,8 @@ public final class Condition implements SearchFilter {
 	//说明：
 	//1.不能用.,主要searchProperty可能是a.user_name
 	//2.不能用_,主要数据库中的字段还有_
-	//便于区分，暂且用|
-    public static final String separator = "|";
+	//便于区分，暂且用-
+    public static final String separator = "-";
 
     private String key;
     private String searchProperty;
@@ -37,7 +37,7 @@ public final class Condition implements SearchFilter {
      * 说明：从前台传入的参数，通过此函数进行解析，此处需要过滤key，防止sql注入
      * 根据查询key和值生成Condition
      *
-     * @param key   如 name|like
+     * @param key   如 name-like
      * @param value
      * @return
      */

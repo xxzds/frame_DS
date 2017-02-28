@@ -2,8 +2,8 @@
 
 <form id="searchForm" class="form-inline search-form" data-change-search="true">
 
-    <esform:label path="search.type|like">模板类型</esform:label>
-    <esform:input path="search.type|like" cssClass="input-small" placeholder="模糊匹配"/>
+    <esform:label path="search.type-like">模板类型</esform:label>
+    <esform:input path="search.type-like" cssClass="input-small" placeholder="模糊匹配"/>
 
     &nbsp;&nbsp;
     <input type="submit" class="btn " value="查询"/>

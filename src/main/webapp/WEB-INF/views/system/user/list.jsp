@@ -8,20 +8,20 @@
 <div data-table="table" class="panel">
 
     <ul class="nav nav-tabs">
-        <li ${param['search.deleted|eq'] ne '1' and param['search.status|eq'] ne 'blocked' ? 'class="active"' : ''}>
+        <li ${param['search.deleted-eq'] ne '1' and param['search.status-eq'] ne 'blocked' ? 'class="active"' : ''}>
             <a href="${ctx}/system/user/${organizationId}/${jobId}">
                 <i class="icon-table"></i>
                 所有用户列表
             </a>
         </li>
-        <li ${param['search.deleted|eq'] eq '1' ? 'class="active"' : ''}>
-            <a href="${ctx}/system/user/${organizationId}/${jobId}?search.deleted|eq=1">
+        <li ${param['search.deleted-eq'] eq '1' ? 'class="active"' : ''}>
+            <a href="${ctx}/system/user/${organizationId}/${jobId}?search.deleted-eq=1">
                 <i class="icon-table"></i>
                 已删除用户列表
             </a>
         </li>
-        <li ${param['search.status|eq'] eq 'blocked' ? 'class="active"' : ''}>
-            <a href="${ctx}/system/user/${organizationId}/${jobId}?search.status|eq=blocked">
+        <li ${param['search.status-eq'] eq 'blocked' ? 'class="active"' : ''}>
+            <a href="${ctx}/system/user/${organizationId}/${jobId}?search.status-eq=blocked">
                 <i class="icon-table"></i>
                 已封禁用户列表
             </a>

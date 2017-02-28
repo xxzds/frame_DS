@@ -91,7 +91,7 @@ public class UserOnlineController extends BaseController{
 				MySession session=(MySession)value;
 				
 				//查询条件
-				Object userNameObj= searchable.getValue("userName|like");
+				Object userNameObj= searchable.getValue("userName-like");
 				String userName = userNameObj==null?"":(String)userNameObj;
 				
 				if(StringUtils.isNotEmpty(session.getUserId()) && StringUtils.isNotEmpty(session.getUserName())){

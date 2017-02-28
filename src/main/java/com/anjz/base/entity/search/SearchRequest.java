@@ -29,7 +29,7 @@ import java.util.Map;
 public final class SearchRequest extends Searchable {
 
 	/**
-	 * map中的key指如：name|like
+	 * map中的key指如：name-like
 	 */
     private final Map<String, SearchFilter> searchFilterMap = Maps.newHashMap();
     /**

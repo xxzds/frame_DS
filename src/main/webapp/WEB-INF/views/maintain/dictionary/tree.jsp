@@ -5,15 +5,15 @@
 
 
 <ul class="nav nav-tabs">
-    <li ${empty param['search.is_show|eq'] ? 'class="active"' : ''}>
+    <li ${empty param['search.is_show-eq'] ? 'class="active"' : ''}>
         <a href="${ctx}/maintain/dictionary/tree?async=true">
             <i class="icon-table"></i>
             所有
             <i class="icon-refresh" title="点击刷新"></i>
         </a>
     </li>
-    <li ${not empty param['search.is_show|eq'] ? 'class="active"' : ''}>
-        <a href="${ctx}/maintain/dictionary/tree?search.is_show|eq=1&async=true">
+    <li ${not empty param['search.is_show-eq'] ? 'class="active"' : ''}>
+        <a href="${ctx}/maintain/dictionary/tree?search.is_show-eq=1&async=true">
             <i class="icon-table"></i>
             可用的
         </a>
@@ -36,7 +36,7 @@
             zNodes : zNodes,
             urlPrefix : "${ctx}/maintain/dictionary",
             async : async,
-            onlyDisplayShow:${param['search.is_show|eq'] eq '1'},
+            onlyDisplayShow:${param['search.is_show-eq'] eq '1'},
             permission: <es:treePermission resourceIdentity="maintain:dictionary"/>,
             autocomplete : {
                 enable : true

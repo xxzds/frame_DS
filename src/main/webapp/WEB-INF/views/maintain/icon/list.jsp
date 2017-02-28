@@ -4,15 +4,15 @@
 <div data-table="table" class="panel">
 
     <ul class="nav nav-tabs">
-        <li ${empty param['search.type|eq'] ? 'class="active"' : ''}>
+        <li ${empty param['search.type-eq'] ? 'class="active"' : ''}>
             <a href="${ctx}/maintain/icon">
                 <i class="icon-table"></i>
                 所有图标列表
             </a>
         </li>
         <c:forEach items="${types}" var="t">
-            <li ${param['search.type|eq'] eq t ? 'class="active"' : ''}>
-                <a href="${ctx}/maintain/icon?search.type|eq=${t}">
+            <li ${param['search.type-eq'] eq t ? 'class="active"' : ''}>
+                <a href="${ctx}/maintain/icon?search.type-eq=${t}">
                     <i class="icon-table"></i>
                     ${t.info}列表
                 </a>

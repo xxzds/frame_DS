@@ -4,14 +4,14 @@
 <div data-table="table" class="panel">
 
     <ul class="nav nav-tabs">
-        <li ${param['search.deleted|eq'] ne '1' ? 'class="active"' : ''}>
-            <a href="${ctx}/maintain/template?search.deleted|eq=0">
+        <li ${param['search.deleted-eq'] ne '1' ? 'class="active"' : ''}>
+            <a href="${ctx}/maintain/template?search.deleted-eq=0">
                 <i class="icon-table"></i>
                 未删除的模板列表
             </a>
         </li>
-        <li ${param['search.deleted|eq'] eq '1' ? 'class="active"' : ''}>
-            <a href="${ctx}/maintain/template?search.deleted|eq=1">
+        <li ${param['search.deleted-eq'] eq '1' ? 'class="active"' : ''}>
+            <a href="${ctx}/maintain/template?search.deleted-eq=1">
                 <i class="icon-table"></i>
                 已删除的模板列表
             </a>
@@ -36,13 +36,13 @@
                 </a>
                 </shiro:hasPermission>
                 <shiro:hasPermission name="maintain:template:delete">
-                <c:if test="${param['search.deleted|eq'] ne '1'}">
+                <c:if test="${param['search.deleted-eq'] ne '1'}">
 					<a class="btn btn-logicDelete"> 
 						<i class="icon-trash"></i>
 						 逻辑删除
 					</a>
 				</c:if>
-				 <c:if test="${param['search.deleted|eq'] eq '1'}">
+				 <c:if test="${param['search.deleted-eq'] eq '1'}">
 					<a class="btn btn-reduction"> 
 						<i class="icon-ok"></i>
 						 还原

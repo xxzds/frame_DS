@@ -58,11 +58,11 @@ public class TemplateController extends BaseCRUDController<MaintainTemplate, Str
 	}
 	
 	@Override
-	@SearchableDefaults(value={"deleted|eq=0"})
+	@SearchableDefaults(value={"deleted-eq=0"})
 	public String list(Searchable searchable, Model model){
 		
 		//模板类型查询
-		String type= searchable.getValue("type|like");
+		String type= searchable.getValue("type-like");
 		if(type != null){
 			
 			MaintainDictionary dictionary=new MaintainDictionary();
@@ -92,12 +92,12 @@ public class TemplateController extends BaseCRUDController<MaintainTemplate, Str
 			searchable.addSearchFilter("type",SearchOperator.in,dictionaryIds);
 		}
 		
-		model.addAttribute("deleted",searchable.getValue("deleted|eq") );
+		model.addAttribute("deleted",searchable.getValue("deleted-eq") );
 		return super.list(searchable, model);
 	}
 	
 	@Override
-	@SearchableDefaults(value={"deleted|eq=0"})
+	@SearchableDefaults(value={"deleted-eq=0"})
 	public String listTable(Searchable searchable, Model model){
 		return super.listTable(searchable, model);
 	}

@@ -4,20 +4,20 @@
 <div data-table="table" class="panel">
 
     <ul class="nav nav-tabs">
-        <li ${empty param['search.is_show|eq'] ? 'class="active"' : ''}>
+        <li ${empty param['search.is_show-eq'] ? 'class="active"' : ''}>
             <a href="${ctx}/system/permission/permission">
                 <i class="icon-table"></i>
                 所有权限列表
             </a>
         </li>
-        <li ${param['search.is_show|eq'] eq '1'? 'class="active"' : ''}>
-            <a href="${ctx}/system/permission/permission?search.is_show|eq=1">
+        <li ${param['search.is_show-eq'] eq '1'? 'class="active"' : ''}>
+            <a href="${ctx}/system/permission/permission?search.is_show-eq=1">
                 <i class="icon-table"></i>
                 可用权限列表
             </a>
         </li>
-        <li ${param['search.is_show|eq'] eq '0' ? 'class="active"' : ''}>
-            <a href="${ctx}/system/permission/permission?search.is_show|eq=0">
+        <li ${param['search.is_show-eq'] eq '0' ? 'class="active"' : ''}>
+            <a href="${ctx}/system/permission/permission?search.is_show-eq=0">
                 <i class="icon-table"></i>
                 不可用权限列表
             </a>

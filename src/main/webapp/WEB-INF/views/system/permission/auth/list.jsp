@@ -6,7 +6,7 @@
     <ul class="nav nav-tabs">
         <c:forEach items="${types}" var="t">
             <li ${t eq type ? 'class="active"' : ''}>
-                <a href="${ctx}/system/permission/auth?search.type|eq=${t}">
+                <a href="${ctx}/system/permission/auth?search.type-eq=${t}">
                     <i class="icon-table"></i>
                     ${t.info}授权列表
                 </a>

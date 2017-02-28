@@ -5,15 +5,15 @@
 
 
 <ul class="nav nav-tabs">
-    <li ${empty param['search.is_show|eq'] ? 'class="active"' : ''}>
+    <li ${empty param['search.is_show-eq'] ? 'class="active"' : ''}>
         <a href="${ctx}/system/organization/tree">
             <i class="icon-table"></i>
             所有
             <i class="icon-refresh" title="点击刷新"></i>
         </a>
     </li>
-    <li ${not empty param['search.is_show|eq'] ? 'class="active"' : ''}>
-        <a href="${ctx}/system/organization/tree?search.is_show|eq=1">
+    <li ${not empty param['search.is_show-eq'] ? 'class="active"' : ''}>
+        <a href="${ctx}/system/organization/tree?search.is_show-eq=1">
             <i class="icon-table"></i>
             显示的
         </a>
@@ -36,7 +36,7 @@
             zNodes : zNodes,
             urlPrefix : "${ctx}/system/organization",
             async : async,
-            onlyDisplayShow:${param['search.is_show|eq'] eq 1},
+            onlyDisplayShow:${param['search.is_show-eq'] eq 1},
             permission: <es:treePermission resourceIdentity="system:organization"/>,
             autocomplete : {
                 enable : true

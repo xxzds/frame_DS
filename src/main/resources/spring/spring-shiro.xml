@@ -112,7 +112,8 @@
     
      <!-- 退出登录过滤器 -->
     <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-        <property name="redirectUrl" value="/tologin"/>
+    <!-- 注意：不需要下面配置，如果配置，退出报：org.apache.shiro.session.unknownsessionexception -->
+<!--         <property name="redirectUrl" value="/tologin"/> -->
     </bean>
 
 	<bean id="jCaptchaValidateFilter" class="com.anjz.base.jcaptcha.JCaptchaValidateFilter">

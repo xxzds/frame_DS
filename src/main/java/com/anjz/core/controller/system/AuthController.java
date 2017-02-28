@@ -82,18 +82,18 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 		
 	}
 
-	@SearchableDefaults(value = "type|eq=user")
+	@SearchableDefaults(value = "type-eq=user")
 	@Override
 	public String list(Searchable searchable, Model model) {
-		String typeName = String.valueOf(searchable.getValue("type|eq"));
+		String typeName = String.valueOf(searchable.getValue("type-eq"));
 		AuthType type= AuthType.valueOf(typeName);
 		model.addAttribute("type", type);
 		
 		//添加不同的查询条件
 		switch (type) {
 		case user: {
-			if(searchable.containsSearchKey("username|like")){
-				String username= searchable.getValue("username|like");
+			if(searchable.containsSearchKey("username-like")){
+				String username= searchable.getValue("username-like");
 				
 				Searchable searchable1=new SearchRequest()
 						.addSearchFilter("user_name", SearchOperator.like, username);
@@ -110,15 +110,15 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 					}
 				}));
 				searchable.addSearchFilter("user_id", SearchOperator.in, userIds);
-				searchable.removeSearchFilter("username|like");
+				searchable.removeSearchFilter("username-like");
 			}
 			
 		}
 		break;
 		case user_group:
 		case organization_group: {
-			if(searchable.containsSearchKey("groupname|like")){
-				String groupname= searchable.getValue("groupname|like");
+			if(searchable.containsSearchKey("groupname-like")){
+				String groupname= searchable.getValue("groupname-like");
 				
 				Searchable searchable1=new SearchRequest()
 						.addSearchFilter("group_name", SearchOperator.like, groupname)
@@ -136,14 +136,14 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 					}
 				}));
 				searchable.addSearchFilter("group_id", SearchOperator.in, groupIds);
-				searchable.removeSearchFilter("groupname|like");
+				searchable.removeSearchFilter("groupname-like");
 			}
 
 		}
 		break;
 		case organization_job: {
-				if(searchable.containsSearchKey("organizationname|like")){
-					String organizatonname=searchable.getValue("organizationname|like");
+				if(searchable.containsSearchKey("organizationname-like")){
+					String organizatonname=searchable.getValue("organizationname-like");
 					
 					Searchable searchable1=new SearchRequest()
 							.addSearchFilter("name", SearchOperator.like, organizatonname);
@@ -159,10 +159,10 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 						}
 					}));
 					searchable.addSearchFilter("organization_id", SearchOperator.in, organizationIds);
-					searchable.removeSearchFilter("organizationname|like");
+					searchable.removeSearchFilter("organizationname-like");
 				}
-				if(searchable.containsSearchKey("jobname|like")){
-					String jobname=searchable.getValue("jobname|like");
+				if(searchable.containsSearchKey("jobname-like")){
+					String jobname=searchable.getValue("jobname-like");
 					
 					Searchable searchable1=new SearchRequest()
 							.addSearchFilter("name", SearchOperator.like, jobname);
@@ -178,7 +178,7 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 						}
 					}));
 					searchable.addSearchFilter("job_id", SearchOperator.in, jobIds);
-					searchable.removeSearchFilter("jobname|like");
+					searchable.removeSearchFilter("jobname-like");
 				}
 		}
 		break;
@@ -192,7 +192,7 @@ public class AuthController extends BaseCRUDController<SysAuth, String> {
 	
 	
 	@Override
-	@SearchableDefaults(value = "type|eq=user",merge=true)
+	@SearchableDefaults(value = "type-eq=user",merge=true)
 	public String listTable(Searchable searchable, Model model) {
 		return super.listTable(searchable, model);
 	}

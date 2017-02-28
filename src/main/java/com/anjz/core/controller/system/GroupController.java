@@ -159,8 +159,8 @@ public class GroupController extends BaseCRUDController<SysGroup, String>{
     public String listGroupRelationTable(@PathVariable("groupId") String groupId, Searchable searchable, Model model) {
 		
 		//用户名称查询
-		if(searchable.containsSearchKey("user_name|like")){
-			Searchable searchable1=new SearchRequest().addSearchParam("user_name|like", searchable.getValue("user_name|like"));
+		if(searchable.containsSearchKey("user_name-like")){
+			Searchable searchable1=new SearchRequest().addSearchParam("user_name-like", searchable.getValue("user_name-like"));
 			
 			List<SysUser> users= sysUserService.findAllWithNoPageNoSort(searchable1);
 			if(users.isEmpty()){
@@ -177,8 +177,8 @@ public class GroupController extends BaseCRUDController<SysGroup, String>{
 		}
 		
 		//机构名称查询
-		if(searchable.containsSearchKey("name|like")){
-			Searchable searchable2=new SearchRequest().addSearchParam("name|like", searchable.getValue("name|like"));
+		if(searchable.containsSearchKey("name-like")){
+			Searchable searchable2=new SearchRequest().addSearchParam("name-like", searchable.getValue("name-like"));
 			
 			List<SysOrganization> organizations= sysOrganizationService.findAllWithNoPageNoSort(searchable2);
 			if(organizations.isEmpty()){
