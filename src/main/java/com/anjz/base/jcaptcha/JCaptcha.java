@@ -5,6 +5,8 @@ import com.octo.captcha.service.captchastore.FastHashMapCaptchaStore;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.SecurityUtils;
+
 /**
  * 提供相应的 API 来验证当前请求输入的验证码是否正确
  * @author ding.shuai
@@ -26,7 +28,9 @@ public class JCaptcha {
 
         boolean validated = false;
         try {
-            String id = request.getSession().getId();
+        	//注意：因使用了shiro，shiro更改了session的获取方式，故此处用shiro的方式获取session，而不使用javaee的方式。
+//          String id = request.getSession().getId();
+            String id = (String)SecurityUtils.getSubject().getSession().getId();
             validated = captchaService.validateResponseForID(id, userCaptchaResponse).booleanValue();
         } catch (CaptchaServiceException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.anjz.base.jcaptcha;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.imageio.ImageIO;
@@ -27,7 +28,9 @@ public class JCaptchaFilter extends OncePerRequestFilter {
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
 
-        String id = request.getSession().getId();
+        //注意：因使用了shiro，shiro更改了session的获取方式，故此处用shiro的方式获取session，而不使用javaee的方式。
+//      String id = request.getSession().getId();
+        String id = (String)SecurityUtils.getSubject().getSession().getId();
         BufferedImage bi = JCaptcha.captchaService.getImageChallengeForID(id);
 
         ServletOutputStream out = response.getOutputStream();
