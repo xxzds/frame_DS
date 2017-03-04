@@ -21,7 +21,7 @@
                 <a href="${ctx}/showcase/upload/${m.id}">${m.id}</a>
             </td>
             <td>${m.name}</td>
-            <td><es:showAttachment filename="${m.src}" showImage="true" width="auto" height="160"/></td>
+            <td><es:showAttachment prefixUrl="${prefixUrl}" filename="${m.src}" showImage="true" width="auto" height="160"/></td>
         </tr>
     </c:forEach>
     </tbody>

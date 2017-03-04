@@ -1,9 +1,13 @@
 package com.anjz.core.controller.showcase;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,14 +31,17 @@ public class AjaxUploadFormController extends BaseController<ShowcaseUpload, Str
 
     @Resource
     private ShowaseUploadService uploadService;
+    @Autowired
+	private PropertiesFactoryBean configProperties;
 
     @RequiresPermissions("showcase:upload:create")
     @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String showCreateForm(Model model) {
+    public String showCreateForm(Model model) throws IOException {
         model.addAttribute(Constants.OP_NAME, "新增");
         if (!model.containsAttribute("upload")) {
             model.addAttribute("upload", newModel());
         }
+        model.addAttribute("prefixUrl", configProperties.getObject().getProperty("sftp.httpBaseUrl"));
         return viewName("editForm");
     }
 

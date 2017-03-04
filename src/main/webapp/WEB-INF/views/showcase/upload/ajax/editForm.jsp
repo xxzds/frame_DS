@@ -72,6 +72,7 @@
 <%@include file="/WEB-INF/views/common/import-upload-simple-js.jspf"%>
 
 <script type="text/javascript">
+	var prefixUrl='${prefixUrl}';
     $(function () {
         $('.fileinput-button input[type="file"]').fileupload({
             dataType : "json"
@@ -105,8 +106,8 @@
                         $("[name=src]").val(file.url);
                         var msg = "<div class='alert alert-success'><strong>上传成功！</strong><br/>{preview}</div>";
                         var preview = "";
-                        var url = ctx + "/" + file.url;
-                        var thumbnail_url = ctx + "/" + file.thumbnail_url;
+                        var url = prefixUrl + "/" + file.url;
+                        var thumbnail_url = prefixUrl + "/" + file.thumbnail_url;
                         if($.app.isImage(file.name)) {
                             preview = "<a href='{url}' target='_blank'><img src='{thumbnail_url}' title='{name}' height='120px'/></a>"
                         } else {

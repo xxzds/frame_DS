@@ -229,7 +229,7 @@ public class FileUploadToServerServiceImpl implements FileUploadService {
 		}finally{
 			sftpChannel.closeChannel();
 		}        
-        return filename;
+        return filename.substring(baseDir.length());
     }
     
     /**

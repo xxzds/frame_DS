@@ -4,6 +4,7 @@
 <%@ tag import="java.net.URLEncoder" %>
 <%@ tag pageEncoding="UTF-8" description="显示附件" %>
 <%@ attribute name="filename" type="java.lang.String" required="true" description="附件地址" %>
+<%@ attribute name="prefixUrl" type="java.lang.String" required="true" description="附件地址前缀" %>
 <%@ attribute name="noAttachmentTitle" type="java.lang.String" required="false" description="没有附件时显示的标题" %>
 <%@ attribute name="isDownload" type="java.lang.Boolean" required="false" description="是否直接下载，默认false" %>
 <%@ attribute name="showImage" type="java.lang.Boolean" required="false" description="如果是图片是否显示" %>
@@ -32,7 +33,7 @@
                 showImage = Boolean.FALSE;
             }
 
-            String ctx = request.getContextPath();
+           /*  String ctx = request.getContextPath(); */
 
             if(showImage && ImagesUtils.isImage(filename)) {
                 if(StringUtils.isEmpty(width)) {
@@ -56,14 +57,14 @@
                 if(isCssSprite) {
                     out.write(String.format(
                             template,
-                            ctx, filename,
+                            prefixUrl, filename,
                             left, top,
                             height, width,
                             style));
                 } else {
                     out.write(String.format(
                             template,
-                            ctx, filename,
+                            prefixUrl, filename,
                             height, width,
                             style));
                 }
@@ -73,7 +74,7 @@
                 if (Boolean.TRUE.equals(isDownload)) {
                     template = "<a href='%s/download?filename=%s' target='_blank'>%s</a>";
                 }
-                out.write(String.format(template, ctx, filename, displayFileName));
+                out.write(String.format(template, prefixUrl, filename, displayFileName));
             }
         %>
     </c:when>

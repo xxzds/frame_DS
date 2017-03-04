@@ -93,6 +93,9 @@ public class SftpUtil {
 	 * @param sftp
 	 */
 	public static void upload(InputStream src,String dst, ChannelSftp sftp) throws SftpException{
+		int index = dst.lastIndexOf("/");
+		String directory = dst.substring(0, index+1);		
+		createDir(directory,sftp);		
 		sftp.put(src, dst);
 	}
 	

@@ -1,9 +1,13 @@
 package com.anjz.core.controller.showcase;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +36,22 @@ public class ShowcaseUploadController extends BaseCRUDController<ShowcaseUpload,
 	@Resource
 	private FileUploadService fileUploadService;
 	
+	@Autowired
+	private PropertiesFactoryBean configProperties;
+	
 	public ShowcaseUploadController() {
 		setResourceIdentity("showcase:upload");
+		setListAlsoSetCommonData(true);
+	}
+	
+	@Override
+	protected void setCommonData(Model model) {
+		 try {			
+			model.addAttribute("prefixUrl", configProperties.getObject().getProperty("sftp.httpBaseUrl"));
+		} catch (IOException e) {
+			
+		}
+		super.setCommonData(model);
 	}
 	
 	@RequestMapping(value = "create/discard", method = RequestMethod.POST)
