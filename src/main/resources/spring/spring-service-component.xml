@@ -25,8 +25,18 @@
 	</bean>
 	
 	<!-- 上传服务 -->
-	<bean id="fileUploadService" class="com.anjz.upload.FileUploadToLocalServiceImpl">
-		<property name="defaultBaseDir" value="${local.uploadDirectory}"/>
+<!-- 	<bean id="fileUploadService" class="com.anjz.upload.FileUploadToLocalServiceImpl"> -->
+<!-- 		<property name="defaultBaseDir" value="${local.uploadDirectory}"/> -->
+<!-- 		<property name="DEFAULT_MAX_SIZE" value=""/> -->
+<!-- 		<property name="DEFAULT_FILE_NAME_LENGTH" value=""/> -->
+<!-- 		<property name="IMAGE_EXTENSION" value=""/> -->
+<!-- 		<property name="FLASH_EXTENSION" value=""/> -->
+<!-- 		<property name="MEDIA_EXTENSION" value=""/> -->
+<!-- 		<property name="DEFAULT_ALLOWED_EXTENSION" value=""/> -->
+<!-- 	</bean> -->
+	
+	<bean id="fileUploadService" class="com.anjz.upload.FileUploadToServerServiceImpl">
+		<property name="defaultBaseDir" value="${sftp.directory}"/>
 		<!-- <property name="DEFAULT_MAX_SIZE" value=""/>
 		<property name="DEFAULT_FILE_NAME_LENGTH" value=""/>
 		<property name="IMAGE_EXTENSION" value=""/>
