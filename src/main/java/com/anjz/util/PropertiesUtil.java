@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anjz.exception.BusinessException;
 import com.google.common.collect.Maps;
@@ -18,6 +20,9 @@ import com.google.common.collect.Maps;
  * @date 2016年7月28日下午9:06:56
  */
 public class PropertiesUtil {
+	
+	public static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
+	
 	private static Map<String, PropertiesUtil> resoures = Maps.newHashMap();
 	
 	private Properties properties=new Properties();
@@ -35,7 +40,7 @@ public class PropertiesUtil {
 			FileInputStream inputStream=new FileInputStream(pathString);
 			properties.load(inputStream);
 		}catch(IOException e){
-			e.printStackTrace();
+			LOGGER.error(e.getMessage(),e);
 		}
 		
 	}
@@ -58,8 +63,10 @@ public class PropertiesUtil {
 			//解决中文乱码问题
 			 value = new String(properties.getProperty(key).getBytes("ISO-8859-1"), "UTF-8");		
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}	
+			LOGGER.error("get key["+key+"] value UnsupportedEncodingException",e);
+		}catch(Exception e){
+			LOGGER.error("get key["+key+"] value exception",e);
+		}
 		if (value == null) {
 			return "";
 		}

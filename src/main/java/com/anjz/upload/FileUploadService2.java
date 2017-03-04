@@ -5,7 +5,7 @@ import org.apache.commons.fileupload.FileItem;
 import com.anjz.result.PlainResult;
 
 /**
- * 文件上传服务
+ * 文件上传服务（底层抽象）
  * 
  * @author ding.shuai
  * @date 2016年8月17日上午9:08:37
