@@ -64,7 +64,7 @@
             <div class="control-group">
                 <form:label path="name" cssClass="control-label"></form:label>
                 <div class="controls">
-                    <es:showAttachment filename="${m.src}" showImage="true" width="auto" height="160"/>
+                    <es:showAttachment prefixUrl="${prefixUrl}" filename="${m.src}" showImage="true" width="auto" height="160"/>
                     <form:hidden path="src"/>
                 </div>
             </div>

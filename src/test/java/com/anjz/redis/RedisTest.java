@@ -25,6 +25,9 @@ public class RedisTest extends BaseTest{
 	@Resource
 	private RedisTemplate<?, ?> redisTemplate;
 	
+	/**
+	 * 获取redis中存储的信息
+	 */
 	@Test
 	public void valuesTest(){
 		  redisTemplate.execute(new RedisCallback<List<Object>>() {
@@ -35,17 +38,20 @@ public class RedisTest extends BaseTest{
 				Set<byte[]> sets= connection.keys(new StringRedisSerializer().serialize(key));
 				
 				List<Object> result=Lists.newArrayList();
+				logger.info("********************************start********************************");
 				for(byte[] bytes:sets){
 					try{
 						Object value= new JdkSerializationRedisSerializer().deserialize(connection.get(bytes));
 						
 						result.add(value);
-						logger.info("redis key="+new JdkSerializationRedisSerializer().deserialize(bytes)+",value="+value);
+						
+						logger.info("redis key="+new StringRedisSerializer().deserialize(bytes)+",value="+value);
 					}catch(Exception e){
+						logger.error("error exception",e);
 						continue;
-					}
-					
-				}						
+					}					
+				}	
+				logger.info("********************************end********************************");
 				return result;
 			}
 		});

@@ -49,7 +49,7 @@ public class ShowcaseUploadController extends BaseCRUDController<ShowcaseUpload,
 		 try {			
 			model.addAttribute("prefixUrl", configProperties.getObject().getProperty("sftp.httpBaseUrl"));
 		} catch (IOException e) {
-			
+			throw new RuntimeException(e.getMessage());
 		}
 		super.setCommonData(model);
 	}
