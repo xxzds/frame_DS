@@ -148,12 +148,13 @@
             	/druid/**=user
             	/static/**=anon
             	/upload/**=anon
+            	/ajaxUpload/**=anon
             	/jcaptcha* = anon
             	/wechat/** = setCommonData
             	/tologin = setCommonData
                 /login = jCaptchaValidate
                 /logout = logout   
-                /test/**=anon    <!--测试不需要登录  -->        
+                /test/**=anon    <!--测试不需要登录  -->                        
                 /** = user,sysUser,online,setCommonData
             </value>
         </property>

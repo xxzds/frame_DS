@@ -1,5 +1,7 @@
 package com.anjz.upload;
 
+import java.io.FileInputStream;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -58,9 +60,9 @@ public class SftpTest{
 	public void uploadTest() throws Exception {
 //		SftpUtil.upload("C:/Users/Administrator/Desktop/markers.png","/usr/local/nginx-1.7.8/html/frame/20170304/a.png", channelSftp);
 				
-//		SftpUtil.upload(new FileInputStream("C:/Users/Administrator/Desktop/新建文本文档.txt"), "/usr/local/nginx-1.7.8/html/frame/20170304/a/aa.txt", channelSftp);
+		SftpUtil.upload(new FileInputStream("C:/Users/Administrator/Desktop/新建文本文档.txt"), "/usr/local/nginx-1.7.8/html/frame/20170304/d/aa.txt", channelSftp);
 		
-		SftpUtil.uploadByStream("C:/Users/Administrator/Desktop/markers.png", "/usr/local/nginx-1.7.8/html/frame/20170304/ccc.png", channelSftp);
+//		SftpUtil.uploadByStream("C:/Users/Administrator/Desktop/markers.png", "/usr/local/nginx-1.7.8/html/frame/20170304/ccc.png", channelSftp);
 	}
 	
 	
