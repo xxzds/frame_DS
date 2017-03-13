@@ -74,10 +74,10 @@ public abstract class Searchable {
 
 
     /**
-     * 添加过滤条件 如key="parent.id_eq" value = 1
+     * 添加过滤条件 如key="parent.id-eq" value = 1
      * 如果添加时不加操作符 默认是custom 即如key=parent 实际key是parent_custom
      *
-     * @param key   如 name_like
+     * @param key   如 name-like
      * @param value 如果是in查询 多个值之间","分隔
      * @return
      */
