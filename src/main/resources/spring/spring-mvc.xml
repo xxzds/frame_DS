@@ -19,6 +19,8 @@
 		validator="validator"
         conversion-service="conversionService">	
 		<mvc:message-converters register-defaults="true">
+			
+			<!-- HttpMessageConverter的配置主要针对@ResponseBody、@RequestBody注解，进行类型转换-->
             <!-- StringHttpMessageConverter编码为UTF-8，防止乱码 -->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
@@ -29,23 +31,26 @@
                             <constructor-arg index="1" value="plain"/>
                             <constructor-arg index="2" value="UTF-8"/>
                         </bean>
-                        <bean class="org.springframework.http.MediaType">
+                       <bean class="org.springframework.http.MediaType">
                             <constructor-arg index="0" value="*"/>
                             <constructor-arg index="1" value="*"/>
                             <constructor-arg index="2" value="UTF-8"/>
                         </bean>
-                    </list>
+                    </list>                   
                 </property>
+                <!-- 不在http头部中设置Accept-Charset，减少流量 -->
+                <property name="writeAcceptCharset" value="false" />
             </bean>
 
             <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
-           <!--  <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>application/json;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean> -->
+            <!-- 默认使用的转化器：org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter -->
+<!--             <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"> -->
+<!--                 <property name="supportedMediaTypes"> -->
+<!--                     <list> -->
+<!--                         <value>text/plain;charset=UTF-8</value> -->
+<!--                     </list> -->
+<!--                 </property> -->
+<!--             </bean> -->
         </mvc:message-converters>
 	
 		<!-- 注解解析器 -->
