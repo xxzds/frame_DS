@@ -6,12 +6,18 @@
 
 	<display-name>frame_DS</display-name>
 
+	<!-- org.springframework.web.context.ContextLoader -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:spring/spring.xml
 		</param-value>
+		
+		<!-- 设置全局变量，如果加载bean时，出现id相同的bean，会抛出异常 -->
+<!-- 		<param-name>contextInitializerClasses</param-name>   -->
+<!--         <param-value>com.anjz.spring.SpringApplicationContextInitializer</param-value> -->
 	</context-param>
+	
 	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -119,6 +125,12 @@
 				classpath:spring/spring-mvc.xml
 			</param-value>
 		</init-param>
+		
+		<!-- 设置全局变量，如果加载bean时，出现id相同的bean，会抛出异常 -->
+<!-- 		<init-param>　   -->
+<!-- 		  <param-name>contextInitializerClasses</param-name>   -->
+<!-- 		  <param-value>com.anjz.spring.SpringApplicationContextInitializer</param-value> -->
+<!-- 		</init-param>   -->
 		<load-on-startup>1</load-on-startup>
 		<!-- 支持异步请求 -->
 		<async-supported>true</async-supported>
