@@ -1,6 +1,7 @@
 package com.anjz.spring.redis;
 
 import java.util.Set;
+import java.util.concurrent.Callable;
 
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
@@ -203,5 +204,13 @@ public class CustomRedisCache implements Cache{
 	public void setName(String name) {
 		this.name = name;
 		this.prefix=name+"$";
+	}
+
+	/**
+	 * 4.3新增接口
+	 */
+	@Override
+	public <T> T get(Object key, Callable<T> valueLoader) {		
+		return null;
 	}
 }

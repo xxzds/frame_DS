@@ -10,7 +10,8 @@
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<junit.version>4.12</junit.version>
-		<spring.version>4.1.4.RELEASE</spring.version>
+		<!-- 2017-3-21   4.1.4.RELEASE -->
+		<spring.version>4.3.6.RELEASE</spring.version>
 		<jackson.version>2.5.0</jackson.version>
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.1.1</logback.version>
@@ -416,6 +417,25 @@
 		    <artifactId>spring-data-redis</artifactId>
 		    <version>1.6.2.RELEASE</version>
 		</dependency>
+		
+		<!-- jms -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jms</artifactId>
+		    <version>${spring.version}</version>
+		</dependency>
+       
+        <dependency>  
+	      <groupId>org.apache.activemq</groupId>  
+	      <artifactId>activemq-client</artifactId>  
+	      <version>5.10.0</version>  
+	    </dependency>
+	    
+		<dependency>
+		    <groupId>org.apache.activemq</groupId>
+		    <artifactId>activemq-pool</artifactId>
+		    <version>5.10.0</version>
+		</dependency>  
 		
 		<!-- 解析模板 -->
 		<dependency>

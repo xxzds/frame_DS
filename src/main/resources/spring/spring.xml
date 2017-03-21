@@ -21,6 +21,7 @@
 		        <value>classpath:config.properties</value>
 		        <value>classpath:mail.properties</value>
 		        <value>classpath:redis/redis.properties</value>
+		         <value>classpath:jms/jms.properties</value>
 	        </list>       
         </property>
         <property name="fileEncoding" value="UTF-8" />
