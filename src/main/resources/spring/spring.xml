@@ -96,4 +96,7 @@
 
 	<!--  组件服务 -->
 	<import resource="classpath:spring/spring-service-component.xml" />
+	
+	<!-- jms -->
+	<import resource="classpath:jms/jms-config.xml" />
 </beans>
