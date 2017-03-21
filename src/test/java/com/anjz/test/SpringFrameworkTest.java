@@ -44,9 +44,10 @@ public class SpringFrameworkTest extends BaseTest{
 	
 	/**
 	 * 测试子线程的执行
+	 * @throws InterruptedException 
 	 */
 	@Test
-	public void taskThreadTest(){
+	public void taskThreadTest() throws InterruptedException{
 		taskExecutor.execute(new Runnable() {
 			
 			@Override
@@ -71,5 +72,8 @@ public class SpringFrameworkTest extends BaseTest{
 				
 			}
 		});
+				
+		//如果子线程执行时间比较长，需要将主线程休眠一下，这样可保证子线程执行完成。
+		Thread.sleep(10);
 	}
 }
