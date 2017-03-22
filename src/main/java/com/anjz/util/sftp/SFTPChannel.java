@@ -1,4 +1,4 @@
-package com.anjz.upload.sftp;
+package com.anjz.util.sftp;
 
 import java.util.Properties;
 

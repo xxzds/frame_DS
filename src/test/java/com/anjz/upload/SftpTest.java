@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.anjz.upload.sftp.SFTPChannel;
-import com.anjz.upload.sftp.SftpUtil;
 import com.anjz.util.PropertiesUtil;
+import com.anjz.util.sftp.SFTPChannel;
+import com.anjz.util.sftp.SftpUtil;
 import com.jcraft.jsch.ChannelSftp;
 
 /**

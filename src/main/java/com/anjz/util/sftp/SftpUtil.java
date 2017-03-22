@@ -1,4 +1,4 @@
-package com.anjz.upload.sftp;
+package com.anjz.util.sftp;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpATTRS;
 import com.jcraft.jsch.SftpException;
+import com.jcraft.jsch.SftpProgressMonitor;
 
 /**
  * sftp 工具类
@@ -82,8 +83,24 @@ public class SftpUtil {
 	 * @param sftp
 	 */
 	public static void upload(String src, String dst, ChannelSftp sftp) throws SftpException{
+		//判断服务端是否有此目录，如果没有，创建
+		int index = dst.lastIndexOf("/");
+		String directory = dst.substring(0, index+1);		
+		createDir(directory,sftp);
+		
 		sftp.put(src, dst);
 	}
+	
+	/**
+	 * 带有进度的上传
+	 */
+	public static void upload(String src, String dst, ChannelSftp sftp,SftpProgressMonitor sftpProgressMonitor) throws SftpException{
+		//判断服务端是否有此目录，如果没有，创建
+		int index = dst.lastIndexOf("/");
+		String directory = dst.substring(0, index+1);		
+		createDir(directory,sftp);		
+		sftp.put(src, dst,sftpProgressMonitor);
+	} 
 	
 	/**
 	 * 上传文件(目标文件路径不存在，会创建)
@@ -93,6 +110,7 @@ public class SftpUtil {
 	 * @param sftp
 	 */
 	public static void upload(InputStream src,String dst, ChannelSftp sftp) throws SftpException{
+		//判断服务端是否有此目录，如果没有，创建
 		int index = dst.lastIndexOf("/");
 		String directory = dst.substring(0, index+1);		
 		createDir(directory,sftp);		
@@ -103,11 +121,16 @@ public class SftpUtil {
 	 * 采用向put方法返回的输出流中写入数据的方式来传输文件。
 	 * 需要由程序来决定写入什么样的数据，这里是将本地文件的输入流写入输出流。采用这种方式的好处是， 可以自行设定每次写入输出流的数据块大小.
 	 * @param src          源文件路径
-	 * @param dst          目标文件路径 (路径必须存在)
+	 * @param dst          目标文件路径
 	 * @param sftp
 	 * @throws Exception
 	 */
 	public static void uploadByStream(String src, String dst, ChannelSftp sftp) throws Exception {
+		//判断服务端是否有此目录，如果没有，创建
+		int index = dst.lastIndexOf("/");
+		String directory = dst.substring(0, index+1);		
+		createDir(directory,sftp);		
+				
 		OutputStream out = sftp.put(dst, ChannelSftp.OVERWRITE); // 使用OVERWRITE模式
 		byte[] buff = new byte[1024 * 256]; // 设定每次传输的数据块大小为256KB
 		int read;

@@ -17,10 +17,10 @@ import com.anjz.base.util.MessageUtils;
 import com.anjz.result.PlainResult;
 import com.anjz.upload.exception.FileNameLengthLimitExceededException;
 import com.anjz.upload.exception.InvalidExtensionException;
-import com.anjz.upload.sftp.SFTPChannel;
-import com.anjz.upload.sftp.SftpUtil;
 import com.anjz.util.PropertiesUtil;
 import com.anjz.util.security.Coder;
+import com.anjz.util.sftp.SFTPChannel;
+import com.anjz.util.sftp.SftpUtil;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 
