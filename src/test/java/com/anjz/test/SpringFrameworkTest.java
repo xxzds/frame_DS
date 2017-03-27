@@ -44,6 +44,7 @@ public class SpringFrameworkTest extends BaseTest{
 	
 	/**
 	 * 测试子线程的执行
+	 * 子线程、孙线程都依附于主线程。
 	 * @throws InterruptedException 
 	 */
 	@Test
@@ -70,9 +71,18 @@ public class SpringFrameworkTest extends BaseTest{
 			public void run() {
 				logger.info("测试子线程的代码执行,线程名："+Thread.currentThread());
 				
+				taskExecutor.execute(new Runnable() {
+					
+					@Override
+					public void run() {
+						logger.info("测试子线程的代码执行,线程名："+Thread.currentThread());						
+					}
+				});
 			}
 		});
-				
+			
+		logger.info("主线程的代码执行,线程名："+Thread.currentThread());	
+		
 		//如果子线程执行时间比较长，需要将主线程休眠一下，这样可保证子线程执行完成。
 		Thread.sleep(10);
 	}

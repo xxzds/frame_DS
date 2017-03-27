@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import com.anjz.base.bind.annotation.AvoidDuplicateSubmission;
 import com.anjz.base.util.MessageUtils;

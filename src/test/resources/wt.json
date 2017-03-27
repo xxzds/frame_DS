@@ -6,22 +6,29 @@
            {
                "type":"view",
                "name":"余额查询",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/wlgz/pages/mobile/myAccount/myAccount.jsp&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/pages/mobile/myAccount/myAccount.jsp&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
             },
             {
                "type":"view",
                "name":"消费查询",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/wlgz/pages/mobile/consumer/consumerList.jsp&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/pages/mobile/consumer/consumerList.jsp&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
             },
             {
                "type":"view",
                "name":"我要预存",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/wlgz/myAccount/toStore.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/myAccount/toStore.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
             },
              {
                "type":"view",
                "name":"易借条",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/wlgz/hyd/hydInit.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
-            }]
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb488456d88e40620&redirect_uri=http://wi15820987.51mypc.cn/hyd/hydInit.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
+            },
+            {
+               "type":"view",
+               "name":"test",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5e1a2ace9127bd9b&redirect_uri=http://wxtest.ahggwl.com/wlgz/hyd/hydInit.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
+            }
+            
+            ]
        }
  }
