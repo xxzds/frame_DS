@@ -83,10 +83,10 @@
 	<import resource="classpath:spring/spring-service-aop.xml" />
 	
 	<!-- ehcache -->
-	<import resource="classpath:cache/cache-config.xml" />
+<!-- 	<import resource="classpath:cache/cache-config.xml" /> -->
 	
 	<!-- redis -->
-<!-- 	<import resource="classpath:redis/redis-config.xml"/> -->
+	<import resource="classpath:redis/redis-config.xml"/>
 	
 	<!-- shiro -->
 	<import resource="classpath:spring/spring-shiro.xml"/>
@@ -98,5 +98,5 @@
 	<import resource="classpath:spring/spring-service-component.xml" />
 	
 	<!-- jms -->
-	<import resource="classpath:jms/jms-config.xml" />
+<!-- 	<import resource="classpath:jms/jms-config.xml" /> -->
 </beans>
