@@ -21,6 +21,7 @@ import com.google.common.collect.Maps;
 
 /**
  * 注意StringRedisSerializer和JdkSerializationRedisSerializer的区别
+ * redis的五种类型 string，hash，set，zset,list
  * @author ding.shuai
  * @date 2016年9月27日上午1:30:06
  */
