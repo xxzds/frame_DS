@@ -1,17 +1,10 @@
 package com.anjz.base.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.anjz.util.QueryStringBuilder;
 
 /**
  * @author ding.shuai
@@ -55,6 +48,7 @@ public class WebUtils {
 		String localeUrl = getLocaleUrlRoot(request);
 
 		String curUri = request.getRequestURI();
+		//未进行解码，get请求参数
 		String curQueryString = request.getQueryString();
 
 		if (StringUtils.isNotBlank(curUri)) {
@@ -62,36 +56,37 @@ public class WebUtils {
 		}
 
 		if (StringUtils.isNotBlank(curQueryString)) {
-			Map<String, String> queryPairs = splitQuery(curQueryString);
-			QueryStringBuilder queryStrBuilder = new QueryStringBuilder();
-			for (String key : queryPairs.keySet()) {
-				queryStrBuilder.addQueryParameter(key, queryPairs.get(key));
-			}
-
-			try {
-				localeUrl = localeUrl + queryStrBuilder.encode("UTF-8");
-			} catch (UnsupportedEncodingException e) {
-			}
+			localeUrl+="?"+curQueryString;
+//			Map<String, String> queryPairs = splitQuery(curQueryString);
+//			QueryStringBuilder queryStrBuilder = new QueryStringBuilder();
+//			for (String key : queryPairs.keySet()) {
+//				queryStrBuilder.addQueryParameter(key, queryPairs.get(key));
+//			}
+//
+//			try {
+//				localeUrl = localeUrl + queryStrBuilder.encode("UTF-8");
+//			} catch (UnsupportedEncodingException e) {
+//			}
 		}
 
 		return localeUrl;
 	}
 
-	private static Map<String, String> splitQuery(String queryString) {
-		Map<String, String> queryPairs = new LinkedHashMap<String, String>();
-		try {
-			String[] pairs = queryString.split("&");
-			for (String pair : pairs) {
-				int idx = pair.indexOf("=");
-				queryPairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"),
-						URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-			}
-
-			return queryPairs;
-		} catch (Exception e) {
-			return queryPairs;
-		}
-	}
+//	private static Map<String, String> splitQuery(String queryString) {
+//		Map<String, String> queryPairs = new LinkedHashMap<String, String>();
+//		try {
+//			String[] pairs = queryString.split("&");
+//			for (String pair : pairs) {
+//				int idx = pair.indexOf("=");
+//				queryPairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"),
+//						URLDecoder.decode(pairn.substring(idx + 1), "UTF-8"));
+//			}
+//
+//			return queryPairs;
+//		} catch (Exception e) {
+//			return queryPairs;
+//		}
+//	}
 	
 	
 	/**

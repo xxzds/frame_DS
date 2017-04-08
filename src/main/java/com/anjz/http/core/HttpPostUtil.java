@@ -3,14 +3,19 @@ package com.anjz.http.core;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.Consts;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +46,7 @@ public class HttpPostUtil {
 
         try {
             HttpUriRequest request = buildUriPostRequest(requestUri, params);
+            
             return httpclient.execute(request, responseHandler);
         } catch (Exception e) {
             String msg = e.getCause() == null ? e.toString() : e.getCause().getMessage();
@@ -59,12 +65,15 @@ public class HttpPostUtil {
     private static HttpUriRequest buildUriPostRequest(final String requestUri, final Map<String, String> params)
             throws URISyntaxException {
         RequestBuilder builder = RequestBuilder.post().setUri(new URI(requestUri));
+        
+        List<BasicNameValuePair> listParams = new ArrayList<BasicNameValuePair>();
         if (params != null) {
             for (Entry<String, String> param : params.entrySet()) {
-                builder.addParameter(param.getKey(), param.getValue());
+                listParams.add(new BasicNameValuePair(param.getKey(), param.getValue()));
             }
         }
-
+        //设置编码格式，防止中文乱码
+        builder.setEntity(new UrlEncodedFormEntity(listParams, Consts.UTF_8)); 
         return builder.build();
     }
 }

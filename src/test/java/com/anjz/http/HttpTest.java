@@ -1,8 +1,10 @@
 package com.anjz.http;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,7 +12,7 @@ import org.junit.Test;
 
 import com.anjz.BaseTest;
 import com.anjz.result.PlainResult;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class HttpTest extends BaseTest {
 
@@ -58,5 +60,13 @@ public class HttpTest extends BaseTest {
 		List<File> lists=new ArrayList<File>();
 		lists.add(new File("/Users/dingshuai/Desktop/logo.png"));
 		httpCallService.httpUpload("http://127.0.0.1:8080/springmvc/file/upload", lists);
+	}
+	
+	@Test
+	public void test3() throws UnsupportedEncodingException{
+		Map<String,String> params = Maps.newHashMap();
+		params.put("name", "你好");
+//		httpCallService.httpGet("http://localhost:9999/kj/test/ajax1", params);
+		httpCallService.httpPost("http://localhost:9999/kj/test/ajax1", params);
 	}
 }
