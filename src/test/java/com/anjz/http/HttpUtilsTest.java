@@ -17,7 +17,7 @@ public class HttpUtilsTest {
 	@Test
 	public void httpUrlConnectionUtilTest(){
 		try{
-			HttpUrlConnectionUtil.doPost("http://www.xh99d.com", null, 60000);	
+			HttpUrlConnectionUtil.doPost("http://localhost:9999/kj/test/ajax3", "{\"name\":\"你好\"}", 60000);	
 //			HttpUrlConnectionUtil.doGet("http://www.xh99d.com", null, 5000);
 		}catch(Exception e){
 			LOGGER.error("exception:",e);

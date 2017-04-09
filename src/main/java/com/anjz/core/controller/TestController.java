@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,8 +47,14 @@ public class TestController {
 	@ResponseBody
 	public SysAuth ajax2(){
 		SysAuth sysAuth = new SysAuth();
-		return sysAuth;
-		
+		return sysAuth;		
+	}
+	
+	
+	@RequestMapping("/ajax3")
+	@ResponseBody
+	public String ajax3(@RequestBody String jsonStr){
+		return jsonStr;
 	}
 
 }

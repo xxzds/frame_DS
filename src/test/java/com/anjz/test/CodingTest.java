@@ -3,6 +3,7 @@ package com.anjz.test;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -44,5 +45,23 @@ public class CodingTest {
 		LOGGER.info( URLDecoder.decode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%E4%BD%A0%E5%A5%BD","gbk"));
 		LOGGER.info( URLDecoder.decode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%E4%BD%A0%E5%A5%BD","iso-8859-1"));
 		LOGGER.info( URLDecoder.decode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%3F%3F","utf-8"));
+		LOGGER.info(URLEncoder.encode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%3F%3F","iso-8859-1"));
+		
+		
+		String name ="你好";
+		System.out.println(Arrays.toString(name.getBytes("utf-8")));
+		//客户端(utf-8)
+		String utf8bm =URLEncoder.encode(name,"utf-8");		
+		System.out.println("utf-8编码后:"+utf8bm);
+		System.out.println(Arrays.toString(utf8bm.getBytes("utf-8")));
+		
+		//服务端(iso-8859-1)	
+		//第一步，二进制转字符串
+		String fwdStr = new String(utf8bm.getBytes("utf-8"),"iso-8859-1");
+		System.out.println(fwdStr);
+		String iso8859jm=URLDecoder.decode(fwdStr,"iso-8859-1");
+		System.out.println("iso-8859-1解码后:"+iso8859jm);
+		System.out.println(Arrays.toString(iso8859jm.getBytes("iso-8859-1")));
+		System.out.println(new String(iso8859jm.getBytes("iso-8859-1"),"utf-8"));
 	}
 }
