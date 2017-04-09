@@ -13,7 +13,10 @@ import org.junit.Test;
 import com.anjz.BaseTest;
 import com.anjz.result.PlainResult;
 import com.google.common.collect.Maps;
-
+/**
+ * @author ding.shuai
+ * @date 2017年4月9日下午4:53:02
+ */
 public class HttpTest extends BaseTest {
 
 	@Resource
@@ -68,5 +71,15 @@ public class HttpTest extends BaseTest {
 		params.put("name", "你好");
 //		httpCallService.httpGet("http://localhost:9999/kj/test/ajax1", params);
 		httpCallService.httpPost("http://localhost:9999/kj/test/ajax1", params);
+	}
+	
+	@Test
+	public void test4(){
+		Map<String,String> params = Maps.newHashMap();
+//		params.put("username", "18755123314");
+//    	params.put("password", "nxl1232104125");
+    	httpCallService.httpPost("http://www.dataoke.com/login", params);
+//    	httpCallService.urlConnectionPost("http://www.dataoke.com/loginApi",null);
+    	
 	}
 }
