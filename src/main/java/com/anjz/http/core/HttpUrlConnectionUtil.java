@@ -45,9 +45,17 @@ public class HttpUrlConnectionUtil {
         public static final String POST         = "POST";
         public static final String GET          = "GET";
     }
-	
-    private static Logger LOG = LoggerFactory.getLogger(HttpUrlConnectionUtil.class);
 
+    /**
+     * post 请求（传输json数据）
+     * @param urlStr      
+     * @param param    json字符串
+     * @param timeout  连接超时时间
+     * @return
+     * @throws SocketTimeoutException
+     * @throws MalformedURLException
+     * @throws IOException
+     */
 	public static String doPost(String urlStr, String param, int timeout) throws SocketTimeoutException, MalformedURLException, IOException {
 		HttpURLConnection conn = null;
 		BufferedReader in = null;
@@ -84,13 +92,13 @@ public class HttpUrlConnectionUtil {
 			logger.info("http响应的返回值：{}",sb.toString());
 			return sb.toString();
 		} catch (SocketTimeoutException e) {
-			LOG.error("[SocketTimeoutException]remoteCallByJson:url[" + urlStr + "] timout:[" + timeout + "]  msg=" + e.getMessage());
+			logger.error("[SocketTimeoutException]remoteCallByJson:url[" + urlStr + "] timout:[" + timeout + "]  msg=" + e.getMessage(),e);
 			throw e;
 		} catch (MalformedURLException e) {
-			LOG.error("[MalformedURLException]remoteCallByJson:url[" + urlStr + "] msg=" + e.getMessage());
+			logger.error("[MalformedURLException]remoteCallByJson:url[" + urlStr + "] msg=" + e.getMessage(),e);
 			throw e;
 		} catch (IOException e) {
-			LOG.error("[IOException]remoteCallByJson:url[" + urlStr + "] msg=" + e.getMessage());
+			logger.error("[IOException]remoteCallByJson:url[" + urlStr + "] msg=" + e.getMessage(),e);
 			throw e;
 		} finally {
 			if (out != null) {
@@ -143,13 +151,13 @@ public class HttpUrlConnectionUtil {
 		    logger.info("http响应的返回值：{}",sb.toString());
 			return sb.toString();
 		} catch (SocketTimeoutException e) {
-			LOG.error("[SocketTimeoutException]doGet: url[" + urlStr + "] timout:[" + timeout + "]  msg=" + e.getMessage());
+			logger.error("[SocketTimeoutException]doGet: url[" + urlStr + "] timout:[" + timeout + "]  msg=" + e.getMessage(),e);
 			throw e;
 		} catch (MalformedURLException e) {
-			LOG.error("[MalformedURLException]doGet: url[" + urlStr + "] msg=" + e.getMessage());
+			logger.error("[MalformedURLException]doGet: url[" + urlStr + "] msg=" + e.getMessage(),e);
 			throw e;
 		} catch (IOException e) {
-			LOG.error("[IOException]doGet: url[" + urlStr + "] msg=" + e.getMessage());
+			logger.error("[IOException]doGet: url[" + urlStr + "] msg=" + e.getMessage(),e);
 			throw e;
 		} finally {
 			if (out != null) {

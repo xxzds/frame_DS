@@ -41,6 +41,7 @@ public class HttpGetUtil {
 
             return httpclient.execute(httpget, responseHandler);
         } catch (Exception e) {
+        	log.error("httpGet exception",e);
             String msg = e.getCause() == null ? e.toString() : e.getCause().getMessage();
             return new PlainResult<String>().setErrorMessage(CommonResultCode.EXCEPITON_HTTP_CALL, msg);
         } finally {

@@ -39,16 +39,16 @@ public class HttpPostUtil {
     public static PlainResult<String> execute(final String requestUri, final Map<String, String> params,
                                               final ResponseHandler<PlainResult<String>> responseHandler) {
         if (StringUtils.isBlank(requestUri)) {
-            return null;
+        	return new PlainResult<String>().setErrorMessage(CommonResultCode.ILLEGAL_PARAM, "requestUri");
         }
 
         CloseableHttpClient httpclient = HttpClientFactory.getCloseableHttpClient();
-
         try {
             HttpUriRequest request = buildUriPostRequest(requestUri, params);
             
             return httpclient.execute(request, responseHandler);
         } catch (Exception e) {
+        	log.error("post request exception", e);
             String msg = e.getCause() == null ? e.toString() : e.getCause().getMessage();
             return new PlainResult<String>().setErrorMessage(CommonResultCode.EXCEPITON_HTTP_CALL, msg);
         } finally {
