@@ -124,26 +124,28 @@ public class SysAuthServiceImpl extends BaseServiceImpl<SysAuth, String> impleme
 		List<SysRoleResourcePermission> roleResourcePermissions = sysRoleResourcePermissionService.findRoleResourcePermissionsByRoleIds(roleIds).getData();		
 		Map<String, Set<String>> resouceIdAndPermissionIds= sysRoleResourcePermissionService.getResourceIdAndPermissionIdsMap(roleResourcePermissions);
 		
-		for(Map.Entry<String, Set<String>> entry:resouceIdAndPermissionIds.entrySet()){
-			SysResource sysResource = sysResourceService.findOne(entry.getKey()).getData();
-			
-			String actualResourceIdentity = sysResourceService.findActualResourceIdentity(sysResource).getData();
-			
-			// 不可用 即没查到 或者标识字符串不存在
-			if (sysResource == null || StringUtils.isEmpty(actualResourceIdentity) || Boolean.FALSE.equals(sysResource.getIsShow())) {
-				continue;
-			}
-			
-			for(String permissionId:entry.getValue()){
-				SysPermission permission = sysPermissionService.findOne(permissionId).getData();
-
-				// 不可用
-				if (permission == null || Boolean.FALSE.equals(permission.getIsShow())) {
+		if(resouceIdAndPermissionIds != null){
+			for(Map.Entry<String, Set<String>> entry:resouceIdAndPermissionIds.entrySet()){
+				SysResource sysResource = sysResourceService.findOne(entry.getKey()).getData();
+				
+				String actualResourceIdentity = sysResourceService.findActualResourceIdentity(sysResource).getData();
+				
+				// 不可用 即没查到 或者标识字符串不存在
+				if (sysResource == null || StringUtils.isEmpty(actualResourceIdentity) || Boolean.FALSE.equals(sysResource.getIsShow())) {
 					continue;
 				}
-				permissions.add(actualResourceIdentity + ":" + permission.getPermission());
+				
+				for(String permissionId:entry.getValue()){
+					SysPermission permission = sysPermissionService.findOne(permissionId).getData();
+
+					// 不可用
+					if (permission == null || Boolean.FALSE.equals(permission.getIsShow())) {
+						continue;
+					}
+					permissions.add(actualResourceIdentity + ":" + permission.getPermission());
+				}
 			}
-		}
+		}		
 		result.setData(permissions);
 		return result;
 	}

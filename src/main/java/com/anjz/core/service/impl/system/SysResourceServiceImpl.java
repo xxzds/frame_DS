@@ -71,13 +71,14 @@ public class SysResourceServiceImpl extends BaseTreeableServiceImpl<SysResource,
         if (StringUtils.isEmpty(actualResourceIdentity)) {
             return true;
         }
-
-        for (String permission : userPermissions) {
-            if (hasPermission(permission, actualResourceIdentity)) {
-                return true;
+        
+        if(userPermissions!=null){
+        	for (String permission : userPermissions) {
+                if (hasPermission(permission, actualResourceIdentity)) {
+                    return true;
+                }
             }
         }
-
         return false;
     }
 

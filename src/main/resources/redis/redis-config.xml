@@ -58,7 +58,7 @@
                <bean class="com.anjz.spring.redis.CustomRedisCache">  
                    <property name="redisTemplate" ref="redisTemplate" />  
                    <property name="name" value="authorizationCache"/>
-                   <property name="timeout" value="3600"/>  
+<!--                    <property name="timeout" value="3600"/>   -->
                </bean>
                
                <bean class="com.anjz.spring.redis.CustomRedisCache">  

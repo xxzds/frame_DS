@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -65,7 +64,7 @@ public class SysUserServiceImpl  extends BaseServiceImpl<SysUser, String> implem
 	 * @return
 	 */
 	@Override
-	@Cacheable(value="currentUserCache",key="#userName")
+//	@Cacheable(value="currentUserCache",key="#userName")
 	public PlainResult<SysUser> findByUsername(String userName) {
 		PlainResult<SysUser> result = new PlainResult<SysUser>();
 
@@ -179,12 +178,18 @@ public class SysUserServiceImpl  extends BaseServiceImpl<SysUser, String> implem
 		}
 		
 		passwordHelperService.encryptPassword(user);
+		
+		//创建时间是否为空，为空，设置当前时间
+		if(user.getUserCreateTime() == null){
+			user.setUserCreateTime(new Date());
+		}		
+		
 		BaseResult saveUserResult= this.saveSelective(user);
 		if(!saveUserResult.isSuccess()){
 			throw new BusinessException("添加用户失败");
 		}
 				
-		if(!organizationJobs.isEmpty()){
+		if(organizationJobs != null && organizationJobs.size()>0){
 			String userId=user.getId();
 			for(SysUserOrganizationJob sysUserOrganizationJob:organizationJobs){
 				sysUserOrganizationJob.setUserId(userId);
@@ -212,12 +217,16 @@ public class SysUserServiceImpl  extends BaseServiceImpl<SysUser, String> implem
 			return result;
 		}
 		
+		//创建时间是否为空，为空，设置当前时间
+		if(user.getUserCreateTime() == null){
+			user.setUserCreateTime(new Date());
+		}	
+		
 		//1.更新用户表
 		BaseResult saveUserResult= this.updateSelectiveById(user);
 		if(!saveUserResult.isSuccess()){
 			throw new BusinessException("添加用户失败");
-		}
-		
+		}		
 		
 		//2.删除组织机构，职位关联表
 		SysUserOrganizationJob model=new SysUserOrganizationJob();
