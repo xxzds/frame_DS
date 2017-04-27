@@ -9,20 +9,30 @@ import java.util.List;
  * @author ding.shuai
  * @date 2016年7月30日上午11:31:06
  */
-public class ExportSetInfo
-{
+public class ExportSetInfo{
+	
+	/**
+	 * String : 代表sheet名称
+     * List : 代表单个sheet里的所有行数据 
+	 */
     private LinkedHashMap<String, List<?>> objsMap;
-     
+    
+    /**
+     * 标题
+     */
     private String[] titles;
-     
+    /**
+     * 表头名列表
+     */
     private List<String[]> headNames;
-     
+    /**
+     * 表头字段列表
+     */
     private List<String[]> fieldNames;
      
     private OutputStream out;
 
-    public LinkedHashMap<String, List<?>> getObjsMap()
-    {
+    public LinkedHashMap<String, List<?>> getObjsMap(){
         return objsMap;
     }
 
@@ -33,60 +43,51 @@ public class ExportSetInfo
      * String : 代表sheet名称
      * List : 代表单个sheet里的所有行数据
      */
-    public void setObjsMap(LinkedHashMap<String, List<?>> objsMap)
-    {
+    public void setObjsMap(LinkedHashMap<String, List<?>> objsMap){
         this.objsMap = objsMap;
     }
 
-    public List<String[]> getFieldNames()
-    {
+    public List<String[]> getFieldNames(){
         return fieldNames;
     }
 
     /**
      * @param clazz 对应每个sheet里的每行数据的对象的属性名称
      */
-    public void setFieldNames(List<String[]> fieldNames)
-    {
+    public void setFieldNames(List<String[]> fieldNames){
         this.fieldNames = fieldNames;
     }
 
-    public String[] getTitles()
-    {
+    public String[] getTitles(){
         return titles;
     }
 
     /**
      * @param titles 对应每个sheet里的标题，即顶部大字
      */
-    public void setTitles(String[] titles)
-    {
+    public void setTitles(String[] titles){
         this.titles = titles;
     }
 
-    public List<String[]> getHeadNames()
-    {
+    public List<String[]> getHeadNames(){
         return headNames;
     }
 
     /**
      * @param headNames 对应每个页签的表头的每一列的名称
      */
-    public void setHeadNames(List<String[]> headNames)
-    {
+    public void setHeadNames(List<String[]> headNames){
         this.headNames = headNames;
     }
 
-    public OutputStream getOut()
-    {
+    public OutputStream getOut(){
         return out;
     }
 
     /**
      * @param out Excel数据将输出到该输出流
      */
-    public void setOut(OutputStream out)
-    {
+    public void setOut(OutputStream out){
         this.out = out;
     }
 }
