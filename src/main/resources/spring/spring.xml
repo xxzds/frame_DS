@@ -20,8 +20,9 @@
 	        <list>
 		        <value>classpath:config.properties</value>
 		        <value>classpath:mail.properties</value>
-		        <value>classpath:redis/redis.properties</value>
-		         <value>classpath:jms/jms.properties</value>
+<!-- 		        <value>classpath:redis/redis.properties</value> -->
+		        <value>classpath:redis/sentinel/redis.properties</value>
+		        <value>classpath:jms/jms.properties</value>
 	        </list>       
         </property>
         <property name="fileEncoding" value="UTF-8" />
@@ -86,7 +87,10 @@
 <!-- 	<import resource="classpath:cache/cache-config.xml" /> -->
 	
 	<!-- redis -->
-	<import resource="classpath:redis/redis-config.xml"/>
+<!-- 	<import resource="classpath:redis/redis-config.xml"/> -->
+	
+	<!-- redis 集群配置 -->
+	<import resource="classpath:redis/sentinel/redis-config.xml"/>
 	
 	<!-- shiro -->
 	<import resource="classpath:spring/spring-shiro.xml"/>
