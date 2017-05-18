@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anjz.core.dao.TestDao">
+	
+	<select id="queryUserByName" resultType="com.anjz.core.model.SysUser">
+		select *
+		from sys_user
+		where user_name = #{name}
+		and user_create_time = #{date}
+	</select>
+	
+	
+</mapper>
