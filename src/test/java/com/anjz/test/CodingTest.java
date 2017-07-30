@@ -46,6 +46,7 @@ public class CodingTest {
 		LOGGER.info( URLDecoder.decode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%E4%BD%A0%E5%A5%BD","iso-8859-1"));
 		LOGGER.info( URLDecoder.decode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%3F%3F","utf-8"));
 		LOGGER.info(URLEncoder.encode("http%3A%2F%2Fwww.baidu.com%3Fname%3D%3F%3F","iso-8859-1"));
+		LOGGER.info( URLDecoder.decode("你好","utf-8"));
 		
 		
 		String name ="你好";

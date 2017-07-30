@@ -13,7 +13,7 @@ import com.anjz.util.RedisUtil;
  * @author ding.shuai
  * @date 2017年3月29日下午8:59:19
  */
-public class RedisUtilTest extends BaseTest{
+public class RedisHashUtilTest extends BaseTest{
 
 	@Before
 	public void setHashTest(){
@@ -34,8 +34,8 @@ public class RedisUtilTest extends BaseTest{
 	
 	@After
 	public void delHashByField(){
-		RedisUtil.delHashByField("test", "name");
-		RedisUtil.delHashByField("test", "name1");
-		RedisUtil.delHashByField("test", "name2");
+		RedisUtil.delHashValueByField("test", "name");
+		RedisUtil.delHashValueByField("test", "name2");
+		RedisUtil.delHashValueByField("test", "name3");
 	}
 }

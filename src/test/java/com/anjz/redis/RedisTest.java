@@ -1,5 +1,6 @@
 package com.anjz.redis;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -8,6 +9,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.Message;
+import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -29,6 +32,8 @@ public class RedisTest extends BaseTest{
 	
 	@Resource
 	private RedisTemplate<?, ?> redisTemplate;
+	
+	private  static StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 	
 	/**
 	 * 获取redis中存储的信息
@@ -101,5 +106,55 @@ public class RedisTest extends BaseTest{
 				return null;	
 			}
 		});
+	}
+	
+	/**
+	 * 订阅
+	 * @throws IOException 
+	 */
+	@Test
+	public void subscribe() throws IOException{
+		final String[] channels = {"redisChat"};
+		redisTemplate.execute(new RedisCallback<Boolean>() {
+			@Override
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+				byte[][] channelsByte=new byte[channels.length][];
+				for(int i=0;i<channels.length;i++){
+					String channel = channels[i];
+					byte[] channelByte=stringRedisSerializer.serialize(channel);
+					channelsByte[i]=channelByte;
+				}
+				
+				connection.subscribe(new MessageListener() {					
+					@Override
+					public void onMessage(Message message, byte[] pattern) {						
+						logger.info("pattern is {}",stringRedisSerializer.deserialize(pattern));
+						logger.info("channel is {}",stringRedisSerializer.deserialize(message.getChannel()));
+						logger.info("message body is {}",stringRedisSerializer.deserialize(message.getBody()));
+					}
+				}, channelsByte);
+				return null;
+			}
+		});
+		System.in.read();
+	}
+	
+	/**
+	 * 发布
+	 * @throws IOException 
+	 */
+	@Test
+	public void publish() throws IOException{
+		redisTemplate.execute(new RedisCallback<Boolean>() {
+			final String channel ="redisChat";
+			@Override
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+				byte[] message = stringRedisSerializer.serialize("Redis is a great caching technique");			
+				connection.publish(stringRedisSerializer.serialize(channel), message);
+				
+				return null;
+			}
+		});
+//		System.in.read();
 	}
 }
