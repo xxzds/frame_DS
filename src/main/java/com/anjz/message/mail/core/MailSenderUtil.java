@@ -17,6 +17,8 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.anjz.result.BaseResult;
 import com.anjz.result.CommonResultCode; 
@@ -27,6 +29,7 @@ import com.anjz.result.CommonResultCode;
  * @date 2016年7月28日下午4:08:15
  */
 public class MailSenderUtil  {
+	private static final Logger LOGGER = LoggerFactory.getLogger(MailSenderUtil.class);
 	
 	private static BaseResult sendMail(MailSenderInfo mailInfo,IMessage message) {	  
 		Properties prop = mailInfo.getProperties();
@@ -47,6 +50,7 @@ public class MailSenderUtil  {
 			ts.close();
 			return new BaseResult();
 		} catch (Exception e) {
+			LOGGER.error("exception",e);
 			String msg = e.getCause() == null ? e.toString() : e.getCause().getMessage();
 			return new BaseResult().setErrorMessage(CommonResultCode.EXCEPITON_HTTP_CALL, msg);
 		}
